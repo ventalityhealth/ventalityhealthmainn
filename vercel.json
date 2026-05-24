@@ -1,0 +1,9 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "env": {
+    "NEXT_PUBLIC_SHOPIFY_DOMAIN": "your-store.myshopify.com",
+    "NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN": "your-storefront-access-token"
+  }
+}
