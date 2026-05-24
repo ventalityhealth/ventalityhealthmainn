@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 const SHOP_LINKS = [
@@ -30,11 +31,17 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link
-              href="/"
-              className="text-white font-semibold text-lg tracking-[0.08em] uppercase"
-            >
-              Ventality
+            <Link href="/" className="flex items-center gap-3">
+              <Image
+                src="/logo.png"
+                alt="Ventality"
+                width={28}
+                height={28}
+                className="w-7 h-7 object-contain"
+              />
+              <span className="text-white font-semibold text-lg tracking-[0.08em] uppercase">
+                Ventality
+              </span>
             </Link>
             <p className="text-white/35 text-sm leading-relaxed mt-4 max-w-[200px]">
               Premium supplements formulated for performance. Manufactured in
