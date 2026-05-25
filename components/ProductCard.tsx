@@ -38,7 +38,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     <Link
       href={`/products/${product.handle}`}
       className={cn(
-        "group relative flex flex-col bg-[#0f0f0f] border border-white/8 rounded-sm overflow-hidden hover:border-white/20 transition-all duration-300",
+        "group relative flex flex-col bg-[#131319] border border-white/8 rounded-sm overflow-hidden hover:border-white/20 transition-all duration-300",
         className
       )}
     >

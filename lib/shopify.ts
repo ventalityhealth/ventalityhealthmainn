@@ -1,11 +1,12 @@
 const DOMAIN =
   process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN || "ventality-2.myshopify.com";
-const TOKEN = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN || "";
+const TOKEN = (process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN || "").trim();
 const API_URL = `https://${DOMAIN}/api/2024-01/graphql.json`;
 
 async function shopifyFetch<T = unknown>(
   query: string,
-  variables: Record<string, unknown> = {}
+  variables: Record<string, unknown> = {},
+  tags: string[] = []
 ): Promise<T | null> {
   if (!TOKEN) return null;
   try {
@@ -16,10 +17,11 @@ async function shopifyFetch<T = unknown>(
         "X-Shopify-Storefront-Access-Token": TOKEN,
       },
       body: JSON.stringify({ query, variables }),
-      next: { revalidate: 60 },
+      next: { revalidate: 3600, tags },
     });
+    const responseText = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
+    const json = JSON.parse(responseText);
     if (json.errors) throw new Error(json.errors[0].message);
     return json.data as T;
   } catch (err) {
@@ -138,7 +140,8 @@ export async function getProducts(
         edges { node { ${PRODUCT_FIELDS} } }
       }
     }`,
-    { first, after, query: queryStr }
+    { first, after, query: queryStr },
+    ["shopify-products"]
   );
   return data?.products ?? null;
 }
@@ -153,7 +156,8 @@ export async function getProductByHandle(
         descriptionHtml
       }
     }`,
-    { handle }
+    { handle },
+    ["shopify-products", `shopify-product-${handle}`]
   );
   return data?.productByHandle ?? null;
 }
@@ -602,3 +606,62 @@ export const MOCK_PRODUCTS: ShopifyProduct[] = [
     vendor: "Ventality",
   },
 ];
+
+// ─── Product Benefit Copy ─────────────────────────────────────────────────────
+
+const TAG_BENEFIT_MAP: Record<string, string> = {
+  adaptogen: "Adapts to your stress load — calm focus on demand",
+  mushroom: "Functional mushroom complex validated by traditional & modern science",
+  focus: "Clinically-studied ingredients for sustained mental clarity",
+  cognitive: "Supports memory, concentration, and cognitive performance",
+  energy: "Clean, sustained energy — no crash, no jitters",
+  immunity: "Fortifies immune defense at the cellular level",
+  "immune-support": "Fortifies immune defense at the cellular level",
+  performance: "Engineered to fuel peak athletic output and faster recovery",
+  strength: "Builds strength and power output — backed by the most-studied ingredient in sports nutrition",
+  recovery: "Accelerates recovery so you train harder, more often",
+  wellness: "Daily foundational support for long-term vitality",
+  sleep: "Deep, restorative sleep — formulated to last all night",
+  relaxation: "Promotes calm and physical relaxation without sedation",
+  "weight-management": "Supports healthy metabolism and body composition goals",
+  thermogenic: "Fuels fat metabolism with studied botanical extracts",
+  collagen: "Rebuilds joints, skin, and connective tissue from within",
+  protein: "Premium protein to build and preserve lean muscle",
+  omega: "Optimal EPA:DHA ratio for heart, brain, and joint health",
+  "vitamin-d": "Powers immune function, bone density, and hormonal balance",
+  magnesium: "Replenishes a mineral over 50% of adults are deficient in",
+  probiotic: "Rebalances your gut microbiome for digestion and immunity",
+  gut: "Targets gut health — the foundation of whole-body wellness",
+  antioxidant: "Neutralizes free radicals and supports cellular longevity",
+  "stress-relief": "Blunts cortisol and stress response without dulling focus",
+  hormone: "Supports healthy hormonal balance and endocrine function",
+  detox: "Supports the body's natural detoxification pathways",
+  "joint-health": "Cushions joints and supports long-term mobility",
+  "brain-health": "Nourishes the brain with the nutrients it actually runs on",
+};
+
+/**
+ * Returns 2–3 punchy, trust-heavy benefit claims for a product.
+ * Derived from product tags with a first-sentence fallback.
+ */
+export function getProductBenefits(product: ShopifyProduct): string[] {
+  const matched: string[] = [];
+
+  for (const tag of product.tags) {
+    const key = tag.toLowerCase().trim();
+    if (TAG_BENEFIT_MAP[key] && !matched.includes(TAG_BENEFIT_MAP[key])) {
+      matched.push(TAG_BENEFIT_MAP[key]);
+    }
+    if (matched.length >= 3) break;
+  }
+
+  if (matched.length > 0) return matched;
+
+  // Fallback: extract up to 2 sentences from the description
+  const sentences = product.description
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 2);
+  return sentences.length > 0 ? sentences : [product.description];
+}

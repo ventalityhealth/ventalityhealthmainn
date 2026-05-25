@@ -26,7 +26,7 @@ const LEGAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#080808] border-t border-white/8 mt-auto">
+    <footer className="bg-[#0b0b0e] border-t border-white/10 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16">
           {/* Brand */}

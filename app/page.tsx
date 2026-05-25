@@ -33,7 +33,7 @@ export default async function HomePage() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f0f14]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -101,7 +101,7 @@ export default async function HomePage() {
                   <Link
                     key={product.id}
                     href={`/products/${product.handle}`}
-                    className="group relative overflow-hidden rounded-sm border border-white/8 bg-[#0f0f0f] hover:border-white/20 transition-all duration-300"
+                    className="group relative overflow-hidden rounded-sm border border-white/8 bg-[#131319] hover:border-white/20 transition-all duration-300"
                   >
                     <div className="relative aspect-square overflow-hidden bg-[#f5f5f3]">
                       {image ? (
@@ -113,14 +113,14 @@ export default async function HomePage() {
                           sizes="(max-width: 1200px) 50vw, 25vw"
                         />
                       ) : (
-                        <div className="w-full h-full bg-[#141414] flex items-center justify-center">
+                        <div className="w-full h-full bg-[#18181f] flex items-center justify-center">
                           <span className="text-white/10 label-xs text-center px-4">
                             {product.title}
                           </span>
                         </div>
                       )}
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-[#0b0b0e]/85 to-transparent">
                       <p className="text-white text-xs font-medium truncate">
                         {product.title}
                       </p>
@@ -172,7 +172,7 @@ export default async function HomePage() {
       </section>
 
       {/* Category Strip */}
-      <section className="py-16 border-y border-white/8">
+      <section className="py-16 border-y border-white/8 bg-[#0b0b0e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="label-sm text-white/30 mb-8 text-center">
             Shop by Goal

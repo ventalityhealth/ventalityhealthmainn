@@ -46,7 +46,7 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 bg-black transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 bg-[#0b0b0e] transition-all duration-300",
           scrolled
             ? "border-b border-white/8"
             : "border-b border-transparent"
@@ -151,7 +151,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden bg-[#0a0a0a] border-t border-white/10">
+          <div className="md:hidden bg-[#0f0f14] border-t border-white/10">
             <nav className="px-4 py-6 space-y-4">
               {NAV_LINKS.map((link) => (
                 <Link

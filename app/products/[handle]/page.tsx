@@ -1,13 +1,13 @@
 import React from "react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, ShieldCheck, FlaskConical, Building2 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { getProductByHandle, getProducts, MOCK_PRODUCTS, formatPrice } from "@/lib/shopify";
+import { getProductByHandle, getProducts, MOCK_PRODUCTS, formatPrice, getProductBenefits } from "@/lib/shopify";
 import AddToCart from "./AddToCart";
+import ProductGallery from "./ProductGallery";
 
 export const revalidate = 60;
 
@@ -66,42 +66,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Images */}
-          <div className="space-y-3">
-            <div className="relative aspect-square bg-[#f5f5f3] rounded-sm overflow-hidden">
-              {images[0] ? (
-                <Image
-                  src={images[0].url}
-                  alt={images[0].altText ?? product.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-white/10 label-xs">{product.title}</span>
-                </div>
-              )}
-            </div>
-            {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {images.slice(1, 5).map((img, i) => (
-                  <div
-                    key={i}
-                    className="relative aspect-square bg-[#f5f5f3] rounded-sm overflow-hidden border border-white/8"
-                  >
-                    <Image
-                      src={img.url}
-                      alt={img.altText ?? `${product.title} ${i + 2}`}
-                      fill
-                      className="object-cover"
-                      sizes="25vw"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <ProductGallery images={images} title={product.title} />
 
           {/* Product Info */}
           <div>
@@ -126,9 +91,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <p className="text-2xl font-medium text-white mt-4">{price}</p>
 
-            <p className="text-white/45 text-sm leading-relaxed mt-5">
-              {product.description}
-            </p>
+            <ul className="mt-5 space-y-2">
+              {getProductBenefits(product).map((claim) => (
+                <li key={claim} className="flex items-start gap-2 text-sm text-white/60">
+                  <span className="text-white/30 mt-0.5 shrink-0">—</span>
+                  <span>{claim}</span>
+                </li>
+              ))}
+            </ul>
 
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 mt-8 py-6 border-y border-white/8">
