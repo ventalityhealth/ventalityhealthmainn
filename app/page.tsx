@@ -101,11 +101,9 @@ export default async function HomePage() {
                   <Link
                     key={product.id}
                     href={`/products/${product.handle}`}
-                    className={`group relative overflow-hidden rounded-sm border border-white/8 bg-[#0f0f0f] hover:border-white/20 transition-all duration-300 ${i === 0 ? "row-span-2" : ""}`}
+                    className="group relative overflow-hidden rounded-sm border border-white/8 bg-[#0f0f0f] hover:border-white/20 transition-all duration-300"
                   >
-                    <div
-                      className={`relative ${i === 0 ? "aspect-[3/4]" : "aspect-square"} overflow-hidden bg-[#f5f5f3]`}
-                    >
+                    <div className="relative aspect-square overflow-hidden bg-[#f5f5f3]">
                       {image ? (
                         <Image
                           src={image.url}
