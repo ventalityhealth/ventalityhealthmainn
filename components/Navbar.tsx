@@ -61,7 +61,7 @@ export default function Navbar() {
                 alt="Ventality"
                 width={32}
                 height={32}
-                className="w-8 h-8 object-contain"
+                className="w-8 h-8 object-contain mix-blend-screen"
               />
               <span className="text-white font-semibold text-lg tracking-[0.08em] uppercase">
                 Ventality

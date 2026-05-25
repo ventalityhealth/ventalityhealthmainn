@@ -43,14 +43,14 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       )}
     >
       {/* Image */}
-      <div className="relative aspect-square bg-[#1a1a1a] overflow-hidden">
+      <div className="relative aspect-square bg-[#f5f5f3] overflow-hidden">
         {image ? (
           <Image
             src={image.url}
             alt={image.altText ?? product.title}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-            className="object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

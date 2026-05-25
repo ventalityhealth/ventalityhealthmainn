@@ -104,14 +104,14 @@ export default async function HomePage() {
                     className={`group relative overflow-hidden rounded-sm border border-white/8 bg-[#0f0f0f] hover:border-white/20 transition-all duration-300 ${i === 0 ? "row-span-2" : ""}`}
                   >
                     <div
-                      className={`relative ${i === 0 ? "aspect-[3/4]" : "aspect-square"} overflow-hidden bg-[#1a1a1a]`}
+                      className={`relative ${i === 0 ? "aspect-[3/4]" : "aspect-square"} overflow-hidden bg-[#f5f5f3]`}
                     >
                       {image ? (
                         <Image
                           src={image.url}
                           alt={image.altText ?? product.title}
                           fill
-                          className="object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
                           sizes="(max-width: 1200px) 50vw, 25vw"
                         />
                       ) : (

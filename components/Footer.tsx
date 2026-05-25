@@ -37,7 +37,7 @@ export default function Footer() {
                 alt="Ventality"
                 width={28}
                 height={28}
-                className="w-7 h-7 object-contain"
+                className="w-7 h-7 object-contain mix-blend-screen"
               />
               <span className="text-white font-semibold text-lg tracking-[0.08em] uppercase">
                 Ventality

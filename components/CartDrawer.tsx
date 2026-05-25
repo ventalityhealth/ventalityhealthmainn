@@ -149,14 +149,14 @@ function CartItemLive({
   const image = line.merchandise.product.images.edges[0]?.node.url;
   return (
     <div className="flex gap-4">
-      <div className="w-16 h-16 rounded bg-[#1a1a1a] border border-white/10 overflow-hidden flex-shrink-0">
+      <div className="w-16 h-16 rounded bg-[#f5f5f3] border border-white/10 overflow-hidden flex-shrink-0">
           {image && (
           <Image
             src={image}
             alt={line.merchandise.product.title}
             width={64}
             height={64}
-            className="w-full h-full object-cover mix-blend-multiply"
+            className="w-full h-full object-cover"
           />
         )}
       </div>
@@ -220,14 +220,14 @@ function CartItemLocal({
 }) {
   return (
     <div className="flex gap-4">
-      <div className="w-16 h-16 rounded bg-[#1a1a1a] border border-white/10 overflow-hidden flex-shrink-0">
+      <div className="w-16 h-16 rounded bg-[#f5f5f3] border border-white/10 overflow-hidden flex-shrink-0">
         {item.image && (
           <Image
             src={item.image}
             alt={item.title}
             width={64}
             height={64}
-            className="w-full h-full object-cover mix-blend-multiply"
+            className="w-full h-full object-cover"
           />
         )}
       </div>
