@@ -1,0 +1,56 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div style="max-width: 440px; margin: 0 auto;">
+    <p class="label-sm vt-mb-2 vt-text-center">Account</p>
+    <h1 class="vt-heading-lg vt-mb-8 vt-text-center">Sign in</h1>
+
+    <div class="vt-panel vt-panel-pad-lg">
+      {%- form 'customer_login' -%}
+        {%- if form.errors -%}
+          <div class="vt-mb-4" style="color: var(--vt-warm);">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <label class="label-xs" for="login-email">Email</label>
+          <input id="login-email" type="email" name="customer[email]" class="vt-input" required autocomplete="email">
+
+          <label class="label-xs" for="login-password">Password</label>
+          <input id="login-password" type="password" name="customer[password]" class="vt-input" required autocomplete="current-password">
+
+          <button type="submit" class="vt-button-primary vt-button-block vt-mt-4">Sign in</button>
+        </div>
+
+        <div class="vt-mt-6 vt-text-center" style="font-size: var(--vt-text-sm); color: var(--vt-muted);">
+          <a href="#recover" id="recover-link" style="color: var(--vt-accent-blue);">Forgot password?</a>
+          <span style="margin: 0 8px;">·</span>
+          <a href="{{ routes.account_register_url }}" style="color: var(--vt-accent-blue);">Create account</a>
+        </div>
+      {%- endform -%}
+    </div>
+
+    <div id="recover" class="vt-panel vt-panel-pad-lg vt-mt-8" style="display:none;">
+      {%- form 'recover_customer_password' -%}
+        <h2 class="vt-heading-md vt-mb-4">Reset password</h2>
+        {%- if form.posted_successfully? -%}
+          <p class="vt-copy" style="color: var(--vt-success);">We've sent you an email with instructions to reset your password.</p>
+        {%- else -%}
+          <p class="vt-copy vt-mb-6">We will send you an email to reset your password.</p>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <input type="email" name="email" class="vt-input" placeholder="your@email.com" required autocomplete="email">
+            <button type="submit" class="vt-button-primary">Send reset link</button>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <script>
+      document.getElementById('recover-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('recover').style.display = 'block';
+        document.getElementById('recover').scrollIntoView({ behavior: 'smooth' });
+      });
+      {%- if recover_password == 'true' -%}document.getElementById('recover').style.display = 'block';{%- endif -%}
+    </script>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div style="max-width: 720px; margin: 0 auto;">
+    <p class="label-sm vt-mb-2"><a href="{{ routes.account_url }}" style="color:var(--vt-muted);">← Back to account</a></p>
+    <h1 class="vt-heading-lg vt-mb-2">Order {{ order.name }}</h1>
+    <p class="vt-copy vt-mb-8">{{ order.created_at | date: '%B %-d, %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+
+    <div class="vt-panel vt-panel-pad-sm" style="padding:0;">
+      {%- for line in order.line_items -%}
+        <div class="vt-cart-item" style="padding: 20px 24px;">
+          <div class="vt-cart-item-image">
+            {%- if line.image -%}<img src="{{ line.image | image_url: width: 144 }}" alt="">{%- endif -%}
+          </div>
+          <div>
+            <p class="vt-cart-item-title">{{ line.title }}</p>
+            <p class="vt-cart-item-variant">Qty {{ line.quantity }}</p>
+          </div>
+          <p class="vt-cart-item-price">{{ line.final_line_price | money }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="vt-mt-8" style="text-align:right;">
+      <p class="vt-cart-subtotal-label">Subtotal</p>
+      <p class="vt-cart-subtotal-value">{{ order.subtotal_price | money }}</p>
+      {%- if order.shipping_price > 0 -%}
+        <p class="vt-cart-subtotal-label vt-mt-4">Shipping</p>
+        <p class="vt-cart-subtotal-value">{{ order.shipping_price | money }}</p>
+      {%- endif -%}
+      <p class="vt-cart-subtotal-label vt-mt-4">Total</p>
+      <p class="vt-cart-subtotal-value">{{ order.total_price | money }}</p>
+    </div>
+  </div>
+</section>

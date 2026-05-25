@@ -1,0 +1,147 @@
+<section class="vt-hero">
+  <div class="vt-hero-grid-overlay"></div>
+  <div class="vt-hero-bottom-fade"></div>
+
+  <div class="vt-container vt-hero-inner">
+    <div class="vt-hero-row">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="vt-eyebrow vt-mb-8">
+            <span class="vt-eyebrow-dot"></span>
+            {{ section.settings.eyebrow }}
+          </div>
+        {%- endif -%}
+
+        <h1 class="vt-heading-xl vt-mb-6">{{ section.settings.heading }}</h1>
+
+        {%- if section.settings.body != blank -%}
+          <p class="vt-copy vt-mb-8" style="max-width: 480px;">{{ section.settings.body }}</p>
+        {%- endif -%}
+
+        <div class="vt-hero-actions">
+          {%- if section.settings.cta1_label != blank -%}
+            <a href="{{ section.settings.cta1_link | default: '#' }}" class="vt-button-primary">
+              {{ section.settings.cta1_label }}
+              {%- render 'icon-arrow-right' -%}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.cta2_label != blank -%}
+            <a href="{{ section.settings.cta2_link | default: '#' }}" class="vt-button-secondary">
+              {{ section.settings.cta2_label }}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- assign trust_items = section.settings.trust_items | split: ',' -%}
+        {%- if trust_items.size > 0 -%}
+          <div class="vt-hero-trust">
+            {%- for item in trust_items -%}
+              {%- assign t = item | strip -%}
+              {%- if t != blank -%}
+                <span class="vt-hero-trust-item">
+                  <span class="vt-hero-trust-item-dot"></span>
+                  <span class="vt-hero-trust-item-label">{{ t }}</span>
+                </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- assign featured_collection = collections[section.settings.collection] -%}
+      {%- if featured_collection and featured_collection.products.size > 0 -%}
+        <div class="vt-hero-mosaic">
+          {%- for product in featured_collection.products limit: 4 -%}
+            <a href="{{ product.url }}" class="vt-panel vt-panel--interactive vt-hero-mosaic-card">
+              <div class="vt-hero-mosaic-image">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                    loading="lazy"
+                    width="600" height="600"
+                  >
+                {%- endif -%}
+              </div>
+              <div class="vt-hero-mosaic-title">{{ product.title }}</div>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "cGMP Manufacturing · FDA-Registered Facilities"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Built on <em>science.</em><br>Backed by <em>results.</em></p>"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body copy",
+      "default": "Premium supplements formulated from evidence-backed ingredients. Every product manufactured in cGMP-compliant, FDA-registered facilities — nothing more, nothing less."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "cta1_label",
+      "label": "Primary button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Secondary button label",
+      "default": "Our Philosophy"
+    },
+    {
+      "type": "url",
+      "id": "cta2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Trust dots"
+    },
+    {
+      "type": "text",
+      "id": "trust_items",
+      "label": "Trust items (comma separated)",
+      "default": "COA Available, FDA-Registered, cGMP Certified, 30-Day Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Product mosaic"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Featured collection (up to 4 products)"
+    }
+  ],
+  "presets": [
+    { "name": "Hero" }
+  ]
+}
+{% endschema %}

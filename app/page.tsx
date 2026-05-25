@@ -12,7 +12,6 @@ import {
   Layers,
   Sparkles,
 } from "lucide-react";
-import TrustBar from "@/components/TrustBar";
 import ProductCard from "@/components/ProductCard";
 import { getProducts, MOCK_PRODUCTS } from "@/lib/shopify";
 
@@ -253,25 +252,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Metrics row ────────────────────────────────────────── */}
-      <section className="vt-container" style={{ paddingBottom: "clamp(40px, 5vw, 72px)" }}>
-        <div className="vt-kpi-row">
-          {[
-            { value: "cGMP", label: "Compliant Manufacturing" },
-            { value: "FDA", label: "Registered Facilities" },
-            { value: "COA", label: "Available on Request" },
-            { value: "30-Day", label: "Satisfaction Guarantee" },
-          ].map((k) => (
-            <div key={k.value} className="vt-kpi">
-              <strong>{k.value}</strong>
-              <span>{k.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Trust Bar ──────────────────────────────────────────── */}
-      <TrustBar />
 
       {/* ── Featured Products ──────────────────────────────────── */}
       <section className="vt-section">

@@ -1,0 +1,83 @@
+<div class="vt-container"><hr class="vt-horizon"></div>
+
+<section class="vt-section">
+  <div class="vt-container">
+    <div class="vt-section-heading-center">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="vt-eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="vt-heading-lg vt-mt-4">{{ section.settings.heading }}</h2>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="vt-grid-3">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'offer' -%}
+            {%- assign panel_classes = 'vt-panel vt-panel-pad-lg vt-offer-card' -%}
+            {%- if block.settings.highlight -%}
+              {%- assign panel_classes = panel_classes | append: ' vt-panel--highlight' -%}
+            {%- endif -%}
+            <div class="{{ panel_classes }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.tier != blank -%}
+                <p class="vt-eyebrow vt-mb-6" style="display:inline-flex;">{{ block.settings.tier }}</p>
+              {%- endif -%}
+              <h3 class="vt-heading-md vt-mb-4">{{ block.settings.headline }}</h3>
+              <p class="vt-body vt-offer-body">{{ block.settings.body }}</p>
+              {%- if block.settings.cta_label != blank -%}
+                {%- if block.settings.highlight -%}
+                  <a href="{{ block.settings.cta_link | default: '#' }}" class="vt-button-primary">
+                    {{ block.settings.cta_label }}{%- render 'icon-arrow-right' -%}
+                  </a>
+                {%- else -%}
+                  <a href="{{ block.settings.cta_link | default: '#' }}" class="vt-button-secondary">
+                    {{ block.settings.cta_label }}{%- render 'icon-arrow-right' -%}
+                  </a>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Offers",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How to start" },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>One entry point.<br><span style=\"color: var(--vt-muted)\">As deep as you want to go.</span></p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer card",
+      "limit": 6,
+      "settings": [
+        { "type": "text",     "id": "tier",      "label": "Tier",            "default": "Single Product" },
+        { "type": "text",     "id": "headline",  "label": "Headline",        "default": "Start with one." },
+        { "type": "textarea", "id": "body",      "label": "Body",            "default": "Choose a single, research-backed formula and build your baseline." },
+        { "type": "text",     "id": "cta_label", "label": "Button label",    "default": "Browse Products" },
+        { "type": "url",      "id": "cta_link",  "label": "Button link" },
+        { "type": "checkbox", "id": "highlight", "label": "Highlight card",  "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Offers",
+      "blocks": [
+        { "type": "offer", "settings": { "tier": "Single Product",  "headline": "Start with one.",            "body": "Choose a single, research-backed formula and build your baseline. Free shipping on orders over $50.", "cta_label": "Browse Products",  "highlight": false } },
+        { "type": "offer", "settings": { "tier": "Curated Stack",   "headline": "Build a routine.",           "body": "Pre-assembled stacks designed around specific goals. Save on multi-product bundles and simplify your protocol.", "cta_label": "View Stacks",      "highlight": true } },
+        { "type": "offer", "settings": { "tier": "Full Protocol",   "headline": "Commit to the long game.",   "body": "Subscribe for monthly delivery and lock in the best per-unit pricing. Pause or cancel anytime.", "cta_label": "Subscribe & Save", "highlight": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}

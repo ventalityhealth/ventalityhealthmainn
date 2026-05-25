@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="{{ settings.color_bg }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.logo -%}
+      <link rel="icon" type="image/png" href="{{ settings.logo | image_url: width: 64 }}">
+    {%- endif -%}
+
+    {%- include 'meta-tags' -%}
+
+    <title>
+      {%- if template == 'index' -%}
+        {{ shop.name }}{% if shop.description != blank %} — {{ shop.description }}{% endif %}
+      {%- elsif template contains 'product' -%}
+        {{ product.title }} | {{ shop.name }}
+      {%- elsif template contains 'collection' and collection -%}
+        {{ collection.title }} | {{ shop.name }}
+      {%- elsif template contains 'cart' -%}
+        Cart | {{ shop.name }}
+      {%- elsif template contains 'search' -%}
+        Search | {{ shop.name }}
+      {%- elsif template contains '404' -%}
+        Page not found | {{ shop.name }}
+      {%- elsif page_title -%}
+        {{ page_title }} | {{ shop.name }}
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </title>
+
+    {%- if settings.font_body -%}
+      {{ settings.font_body | font_face: font_display: 'swap' }}
+      {{ settings.font_heading | font_face: font_display: 'swap' }}
+    {%- endif -%}
+
+    <style>
+      :root {
+        --vt-bg: {{ settings.color_bg }};
+        --vt-bg-2: {{ settings.color_bg_2 }};
+        --vt-bg-3: {{ settings.color_bg_3 }};
+        --vt-text: {{ settings.color_text }};
+        --vt-text-soft: {{ settings.color_text_soft }};
+        --vt-muted: {{ settings.color_muted }};
+        --vt-accent-blue: {{ settings.color_accent_blue }};
+        --vt-lumen-core: {{ settings.color_lumen_core }};
+        {%- if settings.font_body -%}
+          --vt-font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+        {%- endif -%}
+        {%- if settings.font_heading -%}
+          --vt-font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+        {%- endif -%}
+      }
+    </style>
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="vt-page template-{{ template | replace: '.', '-' | handle }}">
+    <a class="vt-skip-link" href="#main-content">Skip to content</a>
+
+    {%- section 'header' -%}
+
+    <main id="main-content" role="main" class="vt-main">
+      {{ content_for_layout }}
+    </main>
+
+    {%- comment -%} Removed 64px spacer; sections handle their own top padding to clear the fixed header. {%- endcomment -%}
+
+    {%- section 'footer' -%}
+
+    {%- render 'cart-drawer' -%}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  </body>
+</html>

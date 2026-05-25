@@ -1,0 +1,27 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div style="max-width: 440px; margin: 0 auto;">
+    <p class="label-sm vt-mb-2 vt-text-center">Account</p>
+    <h1 class="vt-heading-lg vt-mb-8 vt-text-center">Create account</h1>
+
+    <div class="vt-panel vt-panel-pad-lg">
+      {%- form 'create_customer' -%}
+        {%- if form.errors -%}
+          <div class="vt-mb-4" style="color: var(--vt-warm);">{{ form.errors | default_errors }}</div>
+        {%- endif -%}
+
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <input type="text" name="customer[first_name]" class="vt-input" placeholder="First name" required>
+          <input type="text" name="customer[last_name]" class="vt-input" placeholder="Last name" required>
+          <input type="email" name="customer[email]" class="vt-input" placeholder="Email" required autocomplete="email">
+          <input type="password" name="customer[password]" class="vt-input" placeholder="Password" required autocomplete="new-password">
+          <button type="submit" class="vt-button-primary vt-button-block vt-mt-4">Create account</button>
+        </div>
+
+        <div class="vt-mt-6 vt-text-center" style="font-size: var(--vt-text-sm); color: var(--vt-muted);">
+          Already have an account?
+          <a href="{{ routes.account_login_url }}" style="color: var(--vt-accent-blue);">Sign in</a>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</section>

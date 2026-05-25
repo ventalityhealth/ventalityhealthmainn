@@ -1,0 +1,15 @@
+<section class="vt-container">
+  <div class="vt-404">
+    <p class="label-sm vt-mb-4">404</p>
+    <h1 class="vt-heading-lg vt-mb-4">{{ 'general.404.title' | t }}</h1>
+    <p class="vt-copy" style="max-width:480px;margin:0 auto 32px;">{{ 'general.404.subtext' | t }}</p>
+    <a href="{{ routes.root_url }}" class="vt-button-primary">{{ 'general.404.cta' | t }}{%- render 'icon-arrow-right' -%}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": []
+}
+{% endschema %}

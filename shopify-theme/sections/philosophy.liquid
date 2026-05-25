@@ -1,0 +1,99 @@
+<div class="vt-container"><hr class="vt-horizon"></div>
+
+<section class="vt-section">
+  <div class="vt-container">
+    <div class="vt-grid-section">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="vt-eyebrow vt-mb-6">{{ section.settings.eyebrow }}</div>
+        {%- endif -%}
+        <h2 class="vt-heading-lg vt-mb-6">{{ section.settings.heading }}</h2>
+        <div class="vt-copy vt-mb-8" style="display:flex;flex-direction:column;gap:16px;">
+          {{ section.settings.body }}
+        </div>
+        {%- if section.settings.link_label != blank -%}
+          <a href="{{ section.settings.link_url | default: '#' }}" class="vt-button-secondary">
+            {{ section.settings.link_label }}
+            {%- render 'icon-arrow-right' -%}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="vt-grid-2">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'stat' -%}
+              <div class="vt-panel vt-panel-pad-sm" {{ block.shopify_attributes }}>
+                <p class="vt-stat-value">{{ block.settings.value }}</p>
+                <p class="vt-stat-label">{{ block.settings.label }}</p>
+                {%- if block.settings.sub != blank -%}
+                  <p class="vt-stat-sub">{{ block.settings.sub }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Philosophy",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Philosophy"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>No marketing claims.<br><span style=\"color: var(--vt-muted)\">Only what the science supports.</span></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>Every product in our catalog is sourced from a single, carefully selected supplier and manufactured under strict cGMP-compliant conditions in FDA-registered facilities.</p><p>We do not make health claims that exceed what the current body of evidence supports. Certificates of Analysis are available upon request. What you read on the label is what you get.</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "Learn more about Ventality"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat tile",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Stat value", "default": "cGMP" },
+        { "type": "text", "id": "label", "label": "Label",      "default": "Compliant Manufacturing" },
+        { "type": "text", "id": "sub",   "label": "Sub-line",   "default": "All products, every batch" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Philosophy",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "cGMP",   "label": "Compliant Manufacturing", "sub": "All products, every batch" } },
+        { "type": "stat", "settings": { "value": "FDA",    "label": "Registered Facilities",   "sub": "Every supplier audited" } },
+        { "type": "stat", "settings": { "value": "COA",    "label": "Certificate of Analysis", "sub": "Available on request" } },
+        { "type": "stat", "settings": { "value": "30-Day", "label": "Satisfaction Guarantee",  "sub": "No questions asked" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

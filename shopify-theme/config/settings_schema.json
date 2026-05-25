@@ -1,0 +1,154 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ventality Lumen Edge",
+    "theme_version": "1.0.0",
+    "theme_author": "Ventality",
+    "theme_documentation_url": "https://ventality.health",
+    "theme_support_url": "mailto:contact@ventality.health"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand name",
+        "default": "Ventality"
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "label": "Logo height (px)",
+        "min": 16,
+        "max": 64,
+        "step": 2,
+        "default": 32
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Backgrounds"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Page background",
+        "default": "#0B1017"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_2",
+        "label": "Surface background",
+        "default": "#0E131C"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_3",
+        "label": "Elevated surface",
+        "default": "#111826"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Primary text",
+        "default": "#F2F5F8"
+      },
+      {
+        "type": "color",
+        "id": "color_text_soft",
+        "label": "Soft text",
+        "default": "#D8DEE7"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#9AA6B8"
+      },
+      {
+        "type": "header",
+        "content": "Accent"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_blue",
+        "label": "Accent blue",
+        "default": "#A8D1FF"
+      },
+      {
+        "type": "color",
+        "id": "color_lumen_core",
+        "label": "Lumen core",
+        "default": "#DDEFFF"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "assistant_n7"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter",
+        "label": "X / Twitter URL"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "footer_disclaimer",
+        "label": "FDA disclaimer",
+        "default": "<p><strong>FDA Disclaimer:</strong> These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Always consult your healthcare provider before starting any new supplement regimen.</p>"
+      },
+      {
+        "type": "text",
+        "id": "footer_copyright",
+        "label": "Copyright line",
+        "default": "Ventality. All rights reserved. Products manufactured in cGMP-compliant, FDA-registered facilities."
+      }
+    ]
+  }
+]

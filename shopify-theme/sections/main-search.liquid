@@ -1,0 +1,49 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div class="vt-text-center vt-mb-8">
+    <p class="label-sm vt-mb-2">{{ 'general.search.title' | t }}</p>
+    <h1 class="vt-heading-lg">
+      {%- if search.terms != blank -%}
+        Results for &ldquo;{{ search.terms | escape }}&rdquo;
+      {%- else -%}
+        Search the store
+      {%- endif -%}
+    </h1>
+  </div>
+
+  <form action="{{ routes.search_url }}" method="get" role="search" style="max-width:540px;margin:0 auto 48px;display:flex;gap:8px;">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="vt-input" aria-label="{{ 'general.search.title' | t }}">
+    <button type="submit" class="vt-button-primary">{{ 'general.search.submit' | t }}</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- if search.results_count > 0 -%}
+      <p class="vt-collection-count vt-text-center vt-mb-8">{{ search.results_count }} results</p>
+      <div class="vt-grid-products">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {%- render 'product-card', product: item -%}
+          {%- elsif item.object_type == 'article' -%}
+            <a href="{{ item.url }}" class="vt-panel vt-panel-pad-md vt-cap-card">
+              <p class="vt-cap-label">{{ item.title }}</p>
+              <p class="vt-cap-body">{{ item.excerpt | default: item.content | strip_html | truncatewords: 24 }}</p>
+            </a>
+          {%- elsif item.object_type == 'page' -%}
+            <a href="{{ item.url }}" class="vt-panel vt-panel-pad-md vt-cap-card">
+              <p class="vt-cap-label">{{ item.title }}</p>
+              <p class="vt-cap-body">{{ item.content | strip_html | truncatewords: 24 }}</p>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="vt-copy vt-text-center">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+    {%- endif -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

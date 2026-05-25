@@ -1,0 +1,33 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div style="max-width: 720px; margin: 0 auto;">
+    <p class="label-sm vt-mb-2"><a href="{{ routes.account_url }}" style="color:var(--vt-muted);">← Back to account</a></p>
+    <h1 class="vt-heading-lg vt-mb-8">Addresses</h1>
+
+    {%- for address in customer.addresses -%}
+      <div class="vt-panel vt-panel-pad-sm vt-mb-4">
+        <p class="vt-stat-label">{{ address.first_name }} {{ address.last_name }}</p>
+        <p class="vt-stat-sub vt-mt-2">
+          {{ address.address1 }}<br>
+          {%- if address.address2 != blank -%}{{ address.address2 }}<br>{%- endif -%}
+          {{ address.city }}, {{ address.province_code }} {{ address.zip }}<br>
+          {{ address.country }}
+        </p>
+      </div>
+    {%- endfor -%}
+
+    {%- form 'customer_address', customer.new_address -%}
+      <h2 class="vt-heading-md vt-mb-6 vt-mt-8">Add new address</h2>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <input type="text" name="address[first_name]" class="vt-input" placeholder="First name">
+        <input type="text" name="address[last_name]" class="vt-input" placeholder="Last name">
+        <input type="text" name="address[address1]" class="vt-input" placeholder="Address line 1">
+        <input type="text" name="address[address2]" class="vt-input" placeholder="Address line 2">
+        <input type="text" name="address[city]" class="vt-input" placeholder="City">
+        <input type="text" name="address[province]" class="vt-input" placeholder="State / Province">
+        <input type="text" name="address[zip]" class="vt-input" placeholder="ZIP / Postal code">
+        <input type="text" name="address[country]" class="vt-input" placeholder="Country">
+        <button type="submit" class="vt-button-primary vt-mt-4">Save address</button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>

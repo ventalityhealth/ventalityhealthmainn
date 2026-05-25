@@ -1,0 +1,57 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div style="max-width: 880px; margin: 0 auto;">
+    <h1 class="vt-heading-lg vt-mb-8">Your Cart</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="vt-panel vt-panel-pad-lg vt-text-center">
+        <p class="vt-copy vt-mb-6">{{ 'general.cart.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="vt-button-primary">{{ 'general.cart.continue_shopping' | t }}</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate>
+        <div class="vt-panel vt-panel-pad-sm" style="padding:0;">
+          {%- for item in cart.items -%}
+            <div class="vt-cart-item" style="padding: 20px 24px;">
+              <div class="vt-cart-item-image">
+                {%- if item.image -%}
+                  <a href="{{ item.url }}"><img src="{{ item.image | image_url: width: 144 }}" alt="{{ item.product.title | escape }}"></a>
+                {%- endif -%}
+              </div>
+              <div>
+                <a href="{{ item.url }}"><p class="vt-cart-item-title">{{ item.product.title }}</p></a>
+                {%- unless item.variant.title contains 'Default' -%}
+                  <p class="vt-cart-item-variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <div class="vt-cart-qty" style="margin-top:12px;">
+                  <button type="button" data-vt-cart-qty="-1" aria-label="Decrease quantity">−</button>
+                  <span>{{ item.quantity }}</span>
+                  <button type="button" data-vt-cart-qty="1" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+              <div>
+                <p class="vt-cart-item-price">{{ item.final_line_price | money }}</p>
+                <button type="button" class="vt-cart-item-remove" data-vt-cart-remove>{{ 'general.cart.remove' | t }}</button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="vt-mt-8" style="display:flex;flex-direction:column;align-items:flex-end;gap:16px;">
+          <div style="text-align:right;">
+            <p class="vt-cart-subtotal-label">{{ 'general.cart.subtotal' | t }}</p>
+            <p class="vt-cart-subtotal-value">{{ cart.total_price | money }}</p>
+          </div>
+          <a href="/checkout" class="vt-button-primary">{{ 'general.cart.checkout' | t }}</a>
+          <p class="vt-cart-shipping-note">{{ 'general.cart.shipping_at_checkout' | t }}</p>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

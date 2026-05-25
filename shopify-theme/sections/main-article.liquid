@@ -1,0 +1,23 @@
+<section class="vt-container">
+  <article class="vt-article">
+    <p class="label-sm vt-mb-4">
+      <a href="{{ blog.url }}" style="color:var(--vt-muted);">{{ blog.title }}</a>
+    </p>
+    <h1 class="vt-heading-lg">{{ article.title }}</h1>
+    <p class="article-meta">
+      {{ article.published_at | date: '%B %-d, %Y' }}
+      {%- if article.author != blank %} · {{ 'blogs.article.by_author' | t: author: article.author }}{% endif -%}
+    </p>
+    {%- if article.image -%}
+      <img src="{{ article.image | image_url: width: 1200 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="eager" style="border-radius:var(--vt-radius-card);margin-bottom:32px;width:100%;">
+    {%- endif -%}
+    <div class="vt-article-body">{{ article.content }}</div>
+  </article>
+</section>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

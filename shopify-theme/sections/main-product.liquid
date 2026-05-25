@@ -1,0 +1,126 @@
+<section class="vt-container">
+  <div class="vt-product-page">
+    <div class="vt-product-gallery">
+      {%- assign main_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+      <div class="vt-product-gallery-main">
+        {%- if main_image -%}
+          <img
+            id="vt-main-product-image"
+            src="{{ main_image | image_url: width: 1200 }}"
+            alt="{{ main_image.alt | default: product.title | escape }}"
+            width="{{ main_image.width }}"
+            height="{{ main_image.height }}"
+            loading="eager"
+          >
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="vt-product-gallery-thumbs">
+          {%- for img in product.images limit: 8 -%}
+            <button
+              type="button"
+              class="vt-product-gallery-thumb"
+              data-thumb
+              {%- if forloop.first %} aria-current="true"{% endif -%}
+              data-image="{{ img | image_url: width: 1200 }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              <img src="{{ img | image_url: width: 200 }}" alt="" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="vt-product-info-block">
+      <div>
+        {%- if product.vendor != blank -%}
+          <p class="label-sm vt-mb-2">{{ product.vendor }}</p>
+        {%- endif -%}
+        <h1 class="vt-heading-md">{{ product.title }}</h1>
+      </div>
+
+      <div>
+        <span class="vt-product-price-large" data-vt-price>
+          {{ product.selected_or_first_available_variant.price | money }}
+        </span>
+        <span
+          class="vt-product-compare-price"
+          data-vt-compare-price
+          {%- if product.selected_or_first_available_variant.compare_at_price <= product.selected_or_first_available_variant.price %} hidden{% endif -%}
+        >
+          {{ product.selected_or_first_available_variant.compare_at_price | money }}
+        </span>
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="vt-product-desc">{{ product.description }}</div>
+      {%- endif -%}
+
+      <form method="post" action="{{ routes.cart_add_url }}" data-vt-product-form enctype="multipart/form-data">
+        <input type="hidden" name="form_type" value="product">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            {%- assign idx = forloop.index0 -%}
+            <div class="vt-variant-group" data-vt-option-group data-option-index="{{ idx }}">
+              <label>{{ option.name }}</label>
+              <div class="vt-variant-options">
+                {%- for value in option.values -%}
+                  {%- assign is_selected = false -%}
+                  {%- if product.selected_or_first_available_variant.options[idx] == value -%}{%- assign is_selected = true -%}{%- endif -%}
+                  <button type="button" class="vt-variant-option" data-value="{{ value | escape }}" aria-pressed="{{ is_selected }}">
+                    {{ value }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        <div class="vt-add-row">
+          <div class="vt-qty-stepper" data-vt-qty-stepper>
+            <button type="button" data-step="-1" aria-label="Decrease quantity">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+            <button type="button" data-step="1" aria-label="Increase quantity">+</button>
+          </div>
+          <button
+            type="submit"
+            class="vt-button-primary"
+            data-vt-add-button
+            {%- unless product.selected_or_first_available_variant.available %} disabled{% endunless -%}
+          >
+            {%- if product.selected_or_first_available_variant.available -%}
+              {{ 'products.product.add_to_cart' | t }}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.__VT_VARIANTS__ = {{ product.variants | json }};
+  window.__VT_OPTION_NAMES__ = {{ product.options | json }};
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-thumb]');
+    if (!t) return;
+    var main = document.getElementById('vt-main-product-image');
+    if (main) main.src = t.getAttribute('data-image');
+    document.querySelectorAll('[data-thumb]').forEach(function (b) { b.setAttribute('aria-current', 'false'); });
+    t.setAttribute('aria-current', 'true');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": []
+}
+{% endschema %}

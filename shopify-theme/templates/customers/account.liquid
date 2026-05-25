@@ -1,0 +1,52 @@
+<section class="vt-container" style="padding: clamp(80px, 10vw, 120px) 0;">
+  <div style="max-width: 880px; margin: 0 auto;">
+    <div class="vt-flex vt-items-center vt-justify-between vt-mb-8" style="flex-wrap:wrap;gap:16px;">
+      <div>
+        <p class="label-sm vt-mb-2">Account</p>
+        <h1 class="vt-heading-lg">{{ customer.first_name | default: customer.email }}</h1>
+      </div>
+      <a href="{{ routes.account_logout_url }}" class="vt-button-secondary">Sign out</a>
+    </div>
+
+    <div class="vt-grid-section" style="gap:32px;">
+      <div>
+        <h2 class="vt-heading-md vt-mb-6">Recent orders</h2>
+        {%- if customer.orders.size > 0 -%}
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            {%- paginate customer.orders by 10 -%}
+              {%- for order in customer.orders -%}
+                <a href="{{ order.customer_url }}" class="vt-panel vt-panel--interactive vt-panel-pad-sm" style="display:flex;justify-content:space-between;align-items:center;text-decoration:none;">
+                  <div>
+                    <p class="vt-stat-label">{{ order.name }}</p>
+                    <p class="vt-stat-sub">{{ order.created_at | date: '%b %-d, %Y' }} · {{ order.financial_status_label }}</p>
+                  </div>
+                  <p class="vt-stat-label">{{ order.total_price | money }}</p>
+                </a>
+              {%- endfor -%}
+            {%- endpaginate -%}
+          </div>
+        {%- else -%}
+          <p class="vt-copy">You haven't placed any orders yet.</p>
+        {%- endif -%}
+      </div>
+
+      <div>
+        <h2 class="vt-heading-md vt-mb-6">Default address</h2>
+        {%- if customer.default_address -%}
+          <div class="vt-panel vt-panel-pad-sm">
+            <p class="vt-stat-label">{{ customer.default_address.first_name }} {{ customer.default_address.last_name }}</p>
+            <p class="vt-stat-sub vt-mt-2">
+              {{ customer.default_address.address1 }}<br>
+              {%- if customer.default_address.address2 != blank -%}{{ customer.default_address.address2 }}<br>{%- endif -%}
+              {{ customer.default_address.city }}, {{ customer.default_address.province_code }} {{ customer.default_address.zip }}<br>
+              {{ customer.default_address.country }}
+            </p>
+          </div>
+        {%- else -%}
+          <p class="vt-copy">No default address.</p>
+        {%- endif -%}
+        <a href="{{ routes.account_addresses_url }}" class="vt-button-secondary vt-mt-4">Manage addresses</a>
+      </div>
+    </div>
+  </div>
+</section>

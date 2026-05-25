@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "cGMP Manufacturing · FDA-Registered Facilities",
+        "heading": "<p>Built on <em>science.</em><br>Backed by <em>results.</em></p>",
+        "body": "Premium supplements formulated from evidence-backed ingredients. Every product manufactured in cGMP-compliant, FDA-registered facilities — nothing more, nothing less.",
+        "cta1_label": "Shop Now",
+        "cta2_label": "Our Philosophy",
+        "trust_items": "COA Available, FDA-Registered, cGMP Certified, 30-Day Guarantee"
+      }
+    },
+    "featured": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Catalog",
+        "heading": "Featured Products",
+        "product_limit": 4,
+        "view_all_label": "View all"
+      }
+    },
+    "capabilities": {
+      "type": "capabilities",
+      "blocks": {
+        "b1": { "type": "card", "settings": { "icon": "leaf",       "label": "Wellness Foundations",     "body": "Vitamins, minerals, and daily essentials that support the body's baseline function." } },
+        "b2": { "type": "card", "settings": { "icon": "zap",        "label": "Performance",              "body": "Science-backed formulas to support strength, endurance, and active recovery." } },
+        "b3": { "type": "card", "settings": { "icon": "flask",      "label": "Body Composition",         "body": "Metabolic support compounds for active individuals with defined physique goals." } },
+        "b4": { "type": "card", "settings": { "icon": "microscope", "label": "Ingredient Transparency",  "body": "Every compound listed by exact form and dose. No blends. No proprietary obfuscation." } },
+        "b5": { "type": "card", "settings": { "icon": "shield",     "label": "cGMP & FDA-Registered",    "body": "All products manufactured under strict cGMP conditions in FDA-registered facilities." } },
+        "b6": { "type": "card", "settings": { "icon": "layers",     "label": "Stackable Routines",       "body": "Products formulated to work together. Build a routine that compounds over time." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
+      "settings": {
+        "eyebrow": "What we cover",
+        "heading": "<p>Every part of your protocol,<br><span style=\"color: var(--vt-muted)\">engineered to work together.</span></p>"
+      }
+    },
+    "philosophy": {
+      "type": "philosophy",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "value": "cGMP",   "label": "Compliant Manufacturing", "sub": "All products, every batch" } },
+        "s2": { "type": "stat", "settings": { "value": "FDA",    "label": "Registered Facilities",   "sub": "Every supplier audited" } },
+        "s3": { "type": "stat", "settings": { "value": "COA",    "label": "Certificate of Analysis", "sub": "Available on request" } },
+        "s4": { "type": "stat", "settings": { "value": "30-Day", "label": "Satisfaction Guarantee",  "sub": "No questions asked" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    },
+    "offers": {
+      "type": "offers",
+      "blocks": {
+        "o1": { "type": "offer", "settings": { "tier": "Single Product", "headline": "Start with one.",          "body": "Choose a single, research-backed formula and build your baseline. Free shipping on orders over $50.", "cta_label": "Browse Products",  "highlight": false } },
+        "o2": { "type": "offer", "settings": { "tier": "Curated Stack",  "headline": "Build a routine.",         "body": "Pre-assembled stacks designed around specific goals. Save on multi-product bundles and simplify your protocol.", "cta_label": "View Stacks",      "highlight": true } },
+        "o3": { "type": "offer", "settings": { "tier": "Full Protocol",  "headline": "Commit to the long game.", "body": "Subscribe for monthly delivery and lock in the best per-unit pricing. Pause or cancel anytime.", "cta_label": "Subscribe & Save", "highlight": false } }
+      },
+      "block_order": ["o1", "o2", "o3"]
+    },
+    "newsletter": {
+      "type": "newsletter"
+    }
+  },
+  "order": ["hero", "featured", "capabilities", "philosophy", "offers", "newsletter"]
+}

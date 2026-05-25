@@ -1,0 +1,101 @@
+<header class="vt-header" data-vt-header role="banner">
+  <div class="vt-container">
+    <div class="vt-header-inner">
+      <a href="{{ routes.root_url }}" class="vt-logo" aria-label="{{ shop.name }} home">
+        {%- if settings.logo -%}
+          <img
+            src="{{ settings.logo | image_url: width: 96 }}"
+            alt="{{ settings.brand_name | default: shop.name | escape }}"
+            width="{{ settings.logo_height }}"
+            height="{{ settings.logo_height }}"
+            style="width: {{ settings.logo_height }}px; height: {{ settings.logo_height }}px;"
+          >
+        {%- endif -%}
+        <span class="vt-logo-text">{{ settings.brand_name | default: shop.name }}</span>
+      </a>
+
+      <nav class="vt-nav-desktop" aria-label="Primary">
+        {%- assign menu = linklists[section.settings.menu] -%}
+        {%- if menu and menu.links.size > 0 -%}
+          {%- for link in menu.links -%}
+            <a
+              href="{{ link.url }}"
+              class="vt-nav-link"
+              {%- if link.active %} aria-current="page"{% endif -%}
+            >{{ link.title }}</a>
+          {%- endfor -%}
+        {%- endif -%}
+      </nav>
+
+      <div class="vt-header-actions">
+        {%- if section.settings.show_search -%}
+          <button type="button" class="vt-icon-button" data-vt-search-toggle aria-label="Toggle search" aria-expanded="false">
+            {%- render 'icon-search' -%}
+          </button>
+        {%- endif -%}
+
+        <button type="button" class="vt-icon-button" data-vt-cart-open aria-label="Open cart">
+          {%- render 'icon-cart' -%}
+          <span class="vt-cart-badge" data-vt-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>
+            {{ cart.item_count }}
+          </span>
+        </button>
+
+        <button type="button" class="vt-icon-button vt-mobile-toggle" data-vt-mobile-toggle aria-label="Toggle menu" aria-expanded="false">
+          {%- render 'icon-menu' -%}
+        </button>
+      </div>
+    </div>
+
+    {%- if section.settings.show_search -%}
+      <div class="vt-search-bar" data-vt-search-bar data-open="false">
+        <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex;gap:8px;width:100%">
+          <input
+            type="search"
+            name="q"
+            placeholder="{{ 'general.search.placeholder' | t }}"
+            value="{{ search.terms | escape }}"
+            class="vt-input"
+            aria-label="{{ 'general.search.title' | t }}"
+          >
+          <button type="submit" class="vt-button-primary">{{ 'general.search.submit' | t }}</button>
+        </form>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="vt-mobile-menu" data-vt-mobile-menu data-open="false">
+    <nav aria-label="Mobile">
+      {%- assign menu = linklists[section.settings.menu] -%}
+      {%- if menu and menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a
+            href="{{ link.url }}"
+            class="vt-nav-link"
+            {%- if link.active %} aria-current="page"{% endif -%}
+          >{{ link.title }}</a>
+        {%- endfor -%}
+      {%- endif -%}
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Primary menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

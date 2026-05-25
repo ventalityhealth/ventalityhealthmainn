@@ -1,0 +1,51 @@
+{%- comment -%}
+  Usage: {% render 'product-card', product: product %}
+{%- endcomment -%}
+{%- assign first_variant = product.selected_or_first_available_variant -%}
+{%- assign product_image = product.featured_image -%}
+<a href="{{ product.url }}" class="vt-product-card" aria-label="{{ product.title | escape }}">
+  <div class="vt-product-image">
+    {%- if product_image -%}
+      <img
+        src="{{ product_image | image_url: width: 600 }}"
+        srcset="{{ product_image | image_url: width: 300 }} 300w, {{ product_image | image_url: width: 600 }} 600w, {{ product_image | image_url: width: 900 }} 900w"
+        sizes="(max-width: 768px) 50vw, 25vw"
+        alt="{{ product_image.alt | default: product.title | escape }}"
+        loading="lazy"
+        width="{{ product_image.width }}"
+        height="{{ product_image.height }}"
+      >
+    {%- else -%}
+      <div class="vt-product-image-empty">{{ product.title }}</div>
+    {%- endif -%}
+
+    {%- if first_variant and first_variant.available -%}
+      <button
+        type="button"
+        class="vt-product-quickadd"
+        data-vt-quick-add
+        data-variant-id="{{ first_variant.id }}"
+        aria-label="Quick add {{ product.title | escape }} to cart"
+      >
+        {%- render 'icon-plus' -%}
+      </button>
+    {%- endif -%}
+
+    {%- unless product.available -%}
+      <div class="vt-product-soldout"><span>Sold Out</span></div>
+    {%- endunless -%}
+  </div>
+
+  <div class="vt-product-info">
+    <div class="vt-product-info-text">
+      <p class="vt-product-title">{{ product.title }}</p>
+      {%- if product.variants.size > 1 -%}
+        <p class="vt-product-options">{{ product.variants.size }} options</p>
+      {%- endif -%}
+    </div>
+    <p class="vt-product-price">
+      {%- if product.price_varies -%}From {% endif -%}
+      {{ product.price_min | money }}
+    </p>
+  </div>
+</a>

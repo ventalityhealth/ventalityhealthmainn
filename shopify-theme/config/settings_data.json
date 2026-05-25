@@ -1,0 +1,23 @@
+{
+  "current": {
+    "brand_name": "Ventality",
+    "logo_height": 32,
+    "color_bg": "#0B1017",
+    "color_bg_2": "#0E131C",
+    "color_bg_3": "#111826",
+    "color_text": "#F2F5F8",
+    "color_text_soft": "#D8DEE7",
+    "color_muted": "#9AA6B8",
+    "color_accent_blue": "#A8D1FF",
+    "color_lumen_core": "#DDEFFF",
+    "font_body": "assistant_n4",
+    "font_heading": "assistant_n7",
+    "footer_disclaimer": "<p><strong>FDA Disclaimer:</strong> These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Always consult your healthcare provider before starting any new supplement regimen.</p>",
+    "footer_copyright": "Ventality. All rights reserved. Products manufactured in cGMP-compliant, FDA-registered facilities."
+  },
+  "presets": {
+    "Default": {
+      "brand_name": "Ventality"
+    }
+  }
+}

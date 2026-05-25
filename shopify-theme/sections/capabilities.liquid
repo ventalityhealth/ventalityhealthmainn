@@ -1,0 +1,95 @@
+<div class="vt-container"><hr class="vt-horizon"></div>
+
+<section class="vt-section">
+  <div class="vt-container">
+    <div class="vt-section-heading-center">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="vt-eyebrow">
+          {%- render 'icon-sparkles' -%}
+          {{ section.settings.eyebrow }}
+        </div>
+      {%- endif -%}
+      <h2 class="vt-heading-lg vt-mt-4">{{ section.settings.heading }}</h2>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="vt-grid-3">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'card' -%}
+            {%- assign tag = block.settings.link | default: '#' -%}
+            <a href="{{ tag }}" class="vt-panel vt-panel--interactive vt-cap-card vt-panel-pad-md" {{ block.shopify_attributes }}>
+              <div class="vt-cap-icon">
+                {%- render 'icon-library', icon: block.settings.icon -%}
+              </div>
+              <p class="vt-cap-label">{{ block.settings.label }}</p>
+              <p class="vt-cap-body">{{ block.settings.body }}</p>
+              <span class="vt-cap-explore">Explore{%- render 'icon-arrow-right' -%}</span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Capabilities",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What we cover"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Every part of your protocol,<br><span style=\"color: var(--vt-muted)\">engineered to work together.</span></p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Capability card",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "zap", "label": "Lightning" },
+            { "value": "flask", "label": "Flask" },
+            { "value": "microscope", "label": "Microscope" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "layers", "label": "Layers" },
+            { "value": "sparkles", "label": "Sparkles" },
+            { "value": "building", "label": "Building" },
+            { "value": "rotate", "label": "Rotate" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "text", "id": "label", "label": "Label", "default": "Wellness Foundations" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Vitamins, minerals, and daily essentials that support the body's baseline function." },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Capabilities",
+      "blocks": [
+        { "type": "card", "settings": { "icon": "leaf",       "label": "Wellness Foundations",     "body": "Vitamins, minerals, and daily essentials that support the body's baseline function." } },
+        { "type": "card", "settings": { "icon": "zap",        "label": "Performance",              "body": "Science-backed formulas to support strength, endurance, and active recovery." } },
+        { "type": "card", "settings": { "icon": "flask",      "label": "Body Composition",         "body": "Metabolic support compounds for active individuals with defined physique goals." } },
+        { "type": "card", "settings": { "icon": "microscope", "label": "Ingredient Transparency",  "body": "Every compound listed by exact form and dose. No blends. No proprietary obfuscation." } },
+        { "type": "card", "settings": { "icon": "shield",     "label": "cGMP & FDA-Registered",    "body": "All products manufactured under strict cGMP conditions in FDA-registered facilities." } },
+        { "type": "card", "settings": { "icon": "layers",     "label": "Stackable Routines",       "body": "Products formulated to work together. Build a routine that compounds over time." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

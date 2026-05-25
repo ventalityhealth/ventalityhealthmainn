@@ -1,0 +1,49 @@
+<div class="vt-cart-overlay" data-vt-cart-overlay></div>
+<aside class="vt-cart-drawer" data-vt-cart-drawer aria-label="Shopping cart" role="dialog" aria-modal="true">
+  <div class="vt-cart-header">
+    <h2>Your Cart</h2>
+    <button type="button" class="vt-icon-button" data-vt-cart-close aria-label="Close cart">
+      {%- render 'icon-close' -%}
+    </button>
+  </div>
+
+  <div class="vt-cart-body" data-vt-cart-items>
+    {%- if cart.item_count == 0 -%}
+      <div class="vt-cart-empty"><p>Your cart is empty.</p></div>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="vt-cart-item" data-key="{{ item.key }}">
+          <div class="vt-cart-item-image">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 144 }}" alt="{{ item.product.title | escape }}" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div>
+            <p class="vt-cart-item-title">{{ item.product.title }}</p>
+            {%- unless item.variant.title contains 'Default' -%}
+              <p class="vt-cart-item-variant">{{ item.variant.title }}</p>
+            {%- endunless -%}
+            <div class="vt-cart-qty">
+              <button type="button" data-vt-cart-qty="-1" aria-label="Decrease quantity">−</button>
+              <span>{{ item.quantity }}</span>
+              <button type="button" data-vt-cart-qty="1" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <div>
+            <p class="vt-cart-item-price">{{ item.final_line_price | money }}</p>
+            <button type="button" class="vt-cart-item-remove" data-vt-cart-remove>Remove</button>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="vt-cart-footer" data-vt-cart-footer{% if cart.item_count == 0 %} style="display:none"{% endif %}>
+    <div class="vt-cart-subtotal">
+      <span class="vt-cart-subtotal-label">Subtotal</span>
+      <span class="vt-cart-subtotal-value" data-vt-cart-subtotal>{{ cart.total_price | money }}</span>
+    </div>
+    <a href="/checkout" class="vt-button-primary vt-button-block">Checkout</a>
+    <p class="vt-cart-shipping-note">Shipping and taxes calculated at checkout.</p>
+  </div>
+</aside>
