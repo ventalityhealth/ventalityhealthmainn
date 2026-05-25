@@ -19,66 +19,91 @@ export default function PrivacyPage() {
           [&_p]:leading-relaxed [&_p]:mb-4">
 
           <p>
-            This Privacy Policy describes how Ventality (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;)
-            collects, uses, and shares information when you visit or make a purchase from our
-            website (&ldquo;Site&rdquo;).
+            This Privacy Policy describes how Ventality (&ldquo;we&rdquo;, &ldquo;us&rdquo;,
+            &ldquo;our&rdquo;) collects, uses, and shares information when you visit or make a
+            purchase from our website (&ldquo;Site&rdquo;).
           </p>
 
           <h2>Information We Collect</h2>
           <p>
             When you visit the Site, we automatically collect certain information about your
-            device, including information about your web browser, IP address, time zone, and
-            some of the cookies installed on your device.
+            device, including your web browser, IP address, time zone, and cookies installed on
+            your device.
           </p>
           <p>
-            When you make a purchase, we collect your name, billing and shipping address,
-            payment information (processed securely by Shopify), email address, and phone
-            number.
+            When you make a purchase or attempt a purchase, we collect your name, billing and
+            shipping address, payment information (processed securely by Shopify Payments),
+            email address, and phone number (&ldquo;Order Information&rdquo;).
           </p>
 
           <h2>How We Use Your Information</h2>
           <p>
-            We use the Order Information that we collect generally to fulfill any orders placed
-            through the Site, to communicate with you about your order, to screen orders for
-            potential risk or fraud, and to provide you with information or advertising relating
-            to our products or services.
+            We use Order Information to fulfill orders placed through the Site, communicate with
+            you about your order, screen orders for potential risk or fraud, and — where you have
+            opted in — provide you with information about our products and promotions.
           </p>
 
           <h2>Sharing Your Information</h2>
           <p>
-            We share your Personal Information with third parties to help us use your Personal
-            Information as described above. We use Shopify to power our online store — you can
-            read more about how Shopify uses your Personal Information at{" "}
+            We share your personal information with trusted third parties only as necessary to
+            operate our business:
+          </p>
+          <p>
+            <strong className="text-white/70">Shopify</strong> powers our online store and payment
+            processing. You can read Shopify&apos;s privacy policy at{" "}
             <a href="https://www.shopify.com/legal/privacy" className="text-white/60 hover:text-white">
-              https://www.shopify.com/legal/privacy
+              shopify.com/legal/privacy
             </a>
             .
+          </p>
+          <p>
+            <strong className="text-white/70">Supliful (Brand On Demand Inc.)</strong> is our
+            fulfillment partner. When you place an order, your name, shipping address, and order
+            details are shared with Supliful solely for the purpose of manufacturing and shipping
+            your products. Supliful does not use your information for marketing purposes. Their
+            privacy policy is available at{" "}
+            <a href="https://supliful.com/privacy-policy" className="text-white/60 hover:text-white">
+              supliful.com/privacy-policy
+            </a>
+            .
+          </p>
+          <p>
+            We do not sell your personal information to any third parties.
           </p>
 
           <h2>Cookies</h2>
           <p>
             We use cookies and similar tracking technologies to track activity on our Site and
-            hold certain information. You can instruct your browser to refuse all cookies or to
-            indicate when a cookie is being sent.
+            maintain certain information (such as your shopping cart). You can instruct your
+            browser to refuse all cookies or to notify you when a cookie is being sent, though
+            some features of the Site may not function properly without cookies.
           </p>
 
           <h2>Your Rights</h2>
           <p>
-            If you are a European resident, you have the right to access personal information
-            we hold about you and to ask that your personal information be corrected, updated,
-            or deleted. To exercise this right, contact us at contact@ventality.health.
+            If you are a resident of the European Economic Area (EEA) or California, you have the
+            right to access, correct, update, or request deletion of the personal information we
+            hold about you. To exercise any of these rights, contact us at
+            contact@ventality.health.
           </p>
 
           <h2>Data Retention</h2>
           <p>
-            When you place an order through the Site, we will maintain your Order Information
-            for our records unless and until you ask us to delete this information.
+            We retain your Order Information for our records unless and until you request its
+            deletion, subject to any legal obligations that may require us to retain certain
+            data for specified periods.
+          </p>
+
+          <h2>Changes to This Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time. Changes will be posted on this
+            page with an updated &ldquo;Last updated&rdquo; date.
           </p>
 
           <h2>Contact Us</h2>
           <p>
-            For more information about our privacy practices, questions, or complaints, contact
-            us by email at contact@ventality.health.
+            For questions, privacy requests, or complaints, contact us at{" "}
+            <strong className="text-white/70">contact@ventality.health</strong>.
           </p>
         </div>
       </div>
