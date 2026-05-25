@@ -43,7 +43,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#0f0f14] text-white">
+      <body className="vt-page min-h-full flex flex-col text-white">
         <AuthProvider>
           <CartProvider>
             <Navbar />

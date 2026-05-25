@@ -1,8 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronRight, FlaskConical, Zap, Leaf } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  ChevronRight,
+  FlaskConical,
+  Zap,
+  Leaf,
+  ShieldCheck,
+  Microscope,
+  Layers,
+  Sparkles,
+} from "lucide-react";
 import TrustBar from "@/components/TrustBar";
 import ProductCard from "@/components/ProductCard";
 import { getProducts, MOCK_PRODUCTS } from "@/lib/shopify";
@@ -17,111 +26,222 @@ async function getFeaturedProducts() {
   return MOCK_PRODUCTS.slice(0, 4);
 }
 
+/* ── Capability card data ─────────────────────────────────────── */
+const CAPABILITIES = [
+  {
+    icon: Leaf,
+    label: "Wellness Foundations",
+    body: "Vitamins, minerals, and daily essentials that support the body's baseline function.",
+    tag: "wellness",
+  },
+  {
+    icon: Zap,
+    label: "Performance",
+    body: "Science-backed formulas to support strength, endurance, and active recovery.",
+    tag: "performance",
+  },
+  {
+    icon: FlaskConical,
+    label: "Body Composition",
+    body: "Metabolic support compounds for active individuals with defined physique goals.",
+    tag: "weight-management",
+  },
+  {
+    icon: Microscope,
+    label: "Ingredient Transparency",
+    body: "Every compound listed by exact form and dose. No blends. No proprietary obfuscation.",
+    tag: "transparency",
+  },
+  {
+    icon: ShieldCheck,
+    label: "cGMP & FDA-Registered",
+    body: "All products manufactured under strict cGMP conditions in FDA-registered facilities.",
+    tag: "compliance",
+  },
+  {
+    icon: Layers,
+    label: "Stackable Routines",
+    body: "Products formulated to work together. Build a routine that compounds over time.",
+    tag: "stacks",
+  },
+];
+
+/* ── Offer cards ──────────────────────────────────────────────── */
+const OFFERS = [
+  {
+    tier: "Single Product",
+    headline: "Start with one.",
+    body: "Choose a single, research-backed formula and build your baseline. Free shipping on orders over $50.",
+    cta: "Browse Products",
+    href: "/shop",
+    highlight: false,
+  },
+  {
+    tier: "Curated Stack",
+    headline: "Build a routine.",
+    body: "Pre-assembled stacks designed around specific goals. Save on multi-product bundles and simplify your protocol.",
+    cta: "View Stacks",
+    href: "/shop?tag=bundles",
+    highlight: true,
+  },
+  {
+    tier: "Full Protocol",
+    headline: "Commit to the long game.",
+    body: "Subscribe for monthly delivery and lock in the best per-unit pricing. Pause or cancel anytime.",
+    cta: "Subscribe & Save",
+    href: "/shop",
+    highlight: false,
+  },
+];
+
 export default async function HomePage() {
   const featured = await getFeaturedProducts();
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-        {/* Background grid */}
+      {/* ── Hero ───────────────────────────────────────────────── */}
+      <section
+        className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(circle at 18% 10%, rgba(65,88,124,0.14), transparent 34%)," +
+            "radial-gradient(circle at 82% 6%, rgba(112,132,161,0.10), transparent 28%)," +
+            "linear-gradient(180deg, #0B1017 0%, #0C111A 40%, #0A0F16 100%)",
+        }}
+      >
+        {/* Subtle grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
+              "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)," +
+              "linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0f0f14]" />
+        {/* Bottom fade */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-48"
+          style={{
+            background: "linear-gradient(to bottom, transparent, #0A0F16)",
+          }}
+        />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="relative vt-container py-28">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left copy */}
+            {/* Left — copy */}
             <div>
-              <div className="inline-flex items-center gap-2 border border-white/10 rounded-full px-4 py-1.5 mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
-                <span className="label-xs text-white/50">
-                  cGMP Manufacturing · FDA-Registered Facilities
-                </span>
+              <div className="vt-eyebrow mb-8">
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: "var(--vt-lumen-core)", opacity: 0.7 }}
+                />
+                cGMP Manufacturing · FDA-Registered Facilities
               </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-white">
+              <h1 className="vt-heading-xl mb-6">
                 Built on{" "}
-                <span className="relative">
-                  <span className="italic font-light">science.</span>
+                <span style={{ fontStyle: "italic", fontWeight: 300 }}>
+                  science.
                 </span>
                 <br />
                 Backed by{" "}
-                <span className="italic font-light">results.</span>
+                <span style={{ fontStyle: "italic", fontWeight: 300 }}>
+                  results.
+                </span>
               </h1>
 
-              <p className="text-white/45 text-lg leading-relaxed mt-6 max-w-lg">
+              <p className="vt-copy max-w-lg mb-10">
                 Premium supplements formulated from evidence-backed ingredients.
                 Every product manufactured in cGMP-compliant, FDA-registered
                 facilities — nothing more, nothing less.
               </p>
 
-              <div className="flex flex-wrap gap-4 mt-10">
-                <Link
-                  href="/shop"
-                  className="inline-flex items-center bg-white text-black hover:bg-white/90 font-medium px-8 py-3 tracking-wide rounded-sm transition-colors text-sm"
-                >
-                  Shop Now <ArrowRight className="ml-2 w-4 h-4" />
+              <div className="flex flex-wrap gap-3">
+                <Link href="/shop" className="vt-button-primary">
+                  Shop Now <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link
-                  href="/about"
-                  className="inline-flex items-center text-white/50 hover:text-white hover:bg-white/5 font-medium px-6 py-3 tracking-wide rounded-sm border border-white/10 transition-colors text-sm"
-                >
+                <Link href="/about" className="vt-button-secondary">
                   Our Philosophy
                 </Link>
               </div>
 
-              {/* Mini trust */}
-              <div className="flex flex-wrap gap-6 mt-12">
-                {[
-                  "COA Available",
-                  "FDA-Registered",
-                  "cGMP Certified",
-                  "30-Day Guarantee",
-                ].map((t) => (
+              {/* Mini trust dots */}
+              <div className="flex flex-wrap gap-6 mt-10">
+                {["COA Available", "FDA-Registered", "cGMP Certified", "30-Day Guarantee"].map((t) => (
                   <span key={t} className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-white/30" />
-                    <span className="text-white/35 text-xs tracking-wide">{t}</span>
+                    <span
+                      className="w-1 h-1 rounded-full"
+                      style={{ background: "var(--vt-line-strong)" }}
+                    />
+                    <span
+                      style={{
+                        fontSize: "var(--vt-text-xs)",
+                        color: "var(--vt-muted-2)",
+                        letterSpacing: "0.07em",
+                      }}
+                    >
+                      {t}
+                    </span>
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Right — product grid mosaic */}
+            {/* Right — product mosaic */}
             <div className="hidden lg:grid grid-cols-2 gap-3">
-              {featured.slice(0, 4).map((product, i) => {
+              {featured.slice(0, 4).map((product) => {
                 const image = product.images.edges[0]?.node;
                 return (
                   <Link
                     key={product.id}
                     href={`/products/${product.handle}`}
-                    className="group relative overflow-hidden rounded-sm border border-white/8 bg-[#131319] hover:border-white/20 transition-all duration-300"
+                    className="vt-panel vt-panel--interactive group"
+                    style={{ display: "block" }}
                   >
-                    <div className="relative aspect-square overflow-hidden bg-[#f5f5f3]">
+                    <div
+                      className="relative overflow-hidden"
+                      style={{
+                        aspectRatio: "1",
+                        borderRadius: "var(--vt-radius-card) var(--vt-radius-card) 0 0",
+                        background: "#F5F5F3",
+                      }}
+                    >
                       {image ? (
                         <Image
                           src={image.url}
                           alt={image.altText ?? product.title}
                           fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 1200px) 50vw, 25vw"
                         />
                       ) : (
-                        <div className="w-full h-full bg-[#18181f] flex items-center justify-center">
-                          <span className="text-white/10 label-xs text-center px-4">
+                        <div
+                          className="w-full h-full flex items-center justify-center"
+                          style={{ background: "var(--vt-bg-3)" }}
+                        >
+                          <span
+                            style={{
+                              color: "var(--vt-muted-2)",
+                              fontSize: "var(--vt-text-xs)",
+                              textAlign: "center",
+                              padding: "0 16px",
+                            }}
+                          >
                             {product.title}
                           </span>
                         </div>
                       )}
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-[#0b0b0e]/85 to-transparent">
-                      <p className="text-white text-xs font-medium truncate">
+                    <div className="p-3">
+                      <p
+                        className="truncate"
+                        style={{
+                          color: "var(--vt-text-soft)",
+                          fontSize: "var(--vt-text-sm)",
+                          fontWeight: 500,
+                        }}
+                      >
                         {product.title}
                       </p>
                     </div>
@@ -133,22 +253,45 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Trust Bar */}
+      {/* ── Metrics row ────────────────────────────────────────── */}
+      <section className="vt-container" style={{ paddingBottom: "clamp(40px, 5vw, 72px)" }}>
+        <div className="vt-kpi-row">
+          {[
+            { value: "cGMP", label: "Compliant Manufacturing" },
+            { value: "FDA", label: "Registered Facilities" },
+            { value: "COA", label: "Available on Request" },
+            { value: "30-Day", label: "Satisfaction Guarantee" },
+          ].map((k) => (
+            <div key={k.value} className="vt-kpi">
+              <strong>{k.value}</strong>
+              <span>{k.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Trust Bar ──────────────────────────────────────────── */}
       <TrustBar />
 
-      {/* Featured Products */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-12">
+      {/* ── Featured Products ──────────────────────────────────── */}
+      <section className="vt-section">
+        <div className="vt-container">
+          <div
+            className="flex items-end justify-between"
+            style={{ marginBottom: "clamp(32px, 4vw, 56px)" }}
+          >
             <div>
-              <p className="label-sm text-white/30 mb-2">Catalog</p>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
-                Featured Products
-              </h2>
+              <p
+                className="label-sm mb-2"
+                style={{ color: "var(--vt-muted-2)" }}
+              >
+                Catalog
+              </p>
+              <h2 className="vt-heading-lg">Featured Products</h2>
             </div>
             <Link
               href="/shop"
-              className="hidden sm:flex items-center gap-1.5 text-white/40 hover:text-white text-sm transition-colors"
+              className="vt-catalog-viewall hidden sm:flex items-center gap-1.5 transition-colors"
             >
               View all <ChevronRight className="w-4 h-4" />
             </Link>
@@ -160,10 +303,10 @@ export default async function HomePage() {
             ))}
           </div>
 
-          <div className="mt-10 sm:hidden text-center">
+          <div className="mt-8 sm:hidden text-center">
             <Link
               href="/shop"
-              className="inline-flex items-center gap-1.5 text-white/50 hover:text-white text-sm transition-colors"
+              className="vt-catalog-viewall inline-flex items-center gap-1.5 transition-colors"
             >
               View all products <ChevronRight className="w-4 h-4" />
             </Link>
@@ -171,51 +314,76 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Category Strip */}
-      <section className="py-16 border-y border-white/8 bg-[#0b0b0e]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="label-sm text-white/30 mb-8 text-center">
-            Shop by Goal
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              {
-                tag: "wellness",
-                label: "Wellness",
-                description:
-                  "Vitamins, minerals, and foundational support for everyday health.",
-                icon: Leaf,
-              },
-              {
-                tag: "performance",
-                label: "Performance",
-                description:
-                  "Science-backed formulas to support strength, endurance, and recovery.",
-                icon: Zap,
-              },
-              {
-                tag: "weight-management",
-                label: "Body Composition",
-                description:
-                  "Metabolic support formulas for active individuals with defined goals.",
-                icon: FlaskConical,
-              },
-            ].map((cat) => {
-              const Icon = cat.icon;
+      {/* ── Horizon divider ────────────────────────────────────── */}
+      <div className="vt-container">
+        <hr className="vt-horizon" />
+      </div>
+
+      {/* ── Capabilities grid (6 cards) ────────────────────────── */}
+      <section className="vt-section">
+        <div className="vt-container">
+          <div
+            className="text-center"
+            style={{ marginBottom: "clamp(36px, 5vw, 64px)" }}
+          >
+            <div className="vt-eyebrow" style={{ marginBottom: "16px" }}>
+              <Sparkles className="w-3 h-3" />
+              What we cover
+            </div>
+            <h2 className="vt-heading-lg">
+              Every part of your protocol,
+              <br />
+              <span style={{ color: "var(--vt-muted)" }}>engineered to work together.</span>
+            </h2>
+          </div>
+
+          <div className="vt-grid-3">
+            {CAPABILITIES.map((cap) => {
+              const Icon = cap.icon;
               return (
                 <Link
-                  key={cat.tag}
-                  href={`/shop?tag=${cat.tag}`}
-                  className="group flex flex-col p-6 border border-white/8 rounded-sm bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-300"
+                  key={cap.tag}
+                  href={`/shop?tag=${cap.tag}`}
+                  className="vt-panel vt-panel--interactive"
+                  style={{ padding: "28px 24px 32px", display: "block" }}
                 >
-                  <Icon className="w-6 h-6 text-white/30 group-hover:text-white/60 transition-colors mb-4" strokeWidth={1.5} />
-                  <h3 className="text-white font-medium mb-2">{cat.label}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed flex-1">
-                    {cat.description}
+                  <div
+                    className="flex items-center justify-center w-10 h-10 rounded-xl mb-5"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid var(--vt-line)",
+                    }}
+                  >
+                    <Icon
+                      className="w-5 h-5"
+                      style={{ color: "var(--vt-accent-blue)" }}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  <p
+                    className="font-semibold mb-2"
+                    style={{
+                      color: "var(--vt-text)",
+                      fontSize: "var(--vt-text-base)",
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {cap.label}
                   </p>
-                  <div className="flex items-center gap-1.5 mt-4 text-white/30 group-hover:text-white/60 transition-colors">
-                    <span className="text-xs tracking-wide">Explore</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <p
+                    style={{
+                      color: "var(--vt-muted)",
+                      fontSize: "var(--vt-text-sm)",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {cap.body}
+                  </p>
+                  <div
+                    className="flex items-center gap-1.5 mt-5"
+                    style={{ color: "var(--vt-muted-2)", fontSize: "var(--vt-text-xs)" }}
+                  >
+                    Explore <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </Link>
               );
@@ -224,53 +392,60 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* About Strip */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── Horizon divider ────────────────────────────────────── */}
+      <div className="vt-container">
+        <hr className="vt-horizon" />
+      </div>
+
+      {/* ── Workbench / Philosophy section ─────────────────────── */}
+      <section className="vt-section">
+        <div className="vt-container">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left — editorial copy */}
             <div>
-              <p className="label-sm text-white/30 mb-4">Philosophy</p>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight leading-tight">
+              <div className="vt-eyebrow" style={{ marginBottom: "20px" }}>
+                Philosophy
+              </div>
+              <h2 className="vt-heading-lg" style={{ marginBottom: "20px" }}>
                 No marketing claims.
                 <br />
-                Only what the science supports.
+                <span style={{ color: "var(--vt-muted)" }}>
+                  Only what the science supports.
+                </span>
               </h2>
-              <p className="text-white/45 text-base leading-relaxed mt-6">
-                Every product in our catalog is sourced from a single,
-                carefully selected supplier and manufactured under strict
-                cGMP-compliant conditions in FDA-registered facilities. We do
-                not make health claims that exceed what the current body of
-                evidence supports.
+              <p className="vt-copy" style={{ marginBottom: "16px" }}>
+                Every product in our catalog is sourced from a single, carefully
+                selected supplier and manufactured under strict cGMP-compliant
+                conditions in FDA-registered facilities.
               </p>
-              <p className="text-white/45 text-base leading-relaxed mt-4">
-                Certificates of Analysis are available upon request for any
-                product. What you read on the label is what you get.
+              <p className="vt-copy" style={{ marginBottom: "32px" }}>
+                We do not make health claims that exceed what the current body of
+                evidence supports. Certificates of Analysis are available upon
+                request. What you read on the label is what you get.
               </p>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mt-8 transition-colors group"
-              >
+              <Link href="/about" className="vt-button-secondary" style={{ display: "inline-flex" }}>
                 Learn more about Ventality
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* Right — stat panels */}
+            <div className="vt-grid-2">
               {[
                 {
                   stat: "cGMP",
                   label: "Compliant Manufacturing",
-                  sub: "All products",
+                  sub: "All products, every batch",
                 },
                 {
                   stat: "FDA",
                   label: "Registered Facilities",
-                  sub: "Every supplier",
+                  sub: "Every supplier audited",
                 },
                 {
                   stat: "COA",
                   label: "Certificate of Analysis",
-                  sub: "On request",
+                  sub: "Available on request",
                 },
                 {
                   stat: "30-Day",
@@ -278,17 +453,37 @@ export default async function HomePage() {
                   sub: "No questions asked",
                 },
               ].map((item) => (
-                <div
-                  key={item.stat}
-                  className="p-5 border border-white/8 rounded-sm bg-white/[0.02]"
-                >
-                  <p className="text-white text-2xl font-semibold tracking-tight">
+                <div key={item.stat} className="vt-panel" style={{ padding: "24px" }}>
+                  <p
+                    className="font-bold"
+                    style={{
+                      fontSize: "1.5rem",
+                      letterSpacing: "-0.04em",
+                      color: "var(--vt-text)",
+                      lineHeight: 1,
+                    }}
+                  >
                     {item.stat}
                   </p>
-                  <p className="text-white/60 text-sm font-medium mt-1 leading-tight">
+                  <p
+                    className="font-medium mt-2"
+                    style={{
+                      fontSize: "var(--vt-text-sm)",
+                      color: "var(--vt-text-soft)",
+                      lineHeight: 1.3,
+                    }}
+                  >
                     {item.label}
                   </p>
-                  <p className="text-white/25 text-xs mt-1">{item.sub}</p>
+                  <p
+                    className="mt-1"
+                    style={{
+                      fontSize: "var(--vt-text-xs)",
+                      color: "var(--vt-muted-2)",
+                    }}
+                  >
+                    {item.sub}
+                  </p>
                 </div>
               ))}
             </div>
@@ -296,40 +491,150 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter */}
-      <section className="py-16 border-t border-white/8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl mx-auto text-center">
-            <p className="label-sm text-white/30 mb-3">Stay Informed</p>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+      {/* ── Horizon divider ────────────────────────────────────── */}
+      <div className="vt-container">
+        <hr className="vt-horizon" />
+      </div>
+
+      {/* ── Offer cards ────────────────────────────────────────── */}
+      <section className="vt-section">
+        <div className="vt-container">
+          <div
+            className="text-center"
+            style={{ marginBottom: "clamp(36px, 5vw, 64px)" }}
+          >
+            <div className="vt-eyebrow" style={{ marginBottom: "16px" }}>
+              How to start
+            </div>
+            <h2 className="vt-heading-lg">
+              One entry point.
+              <br />
+              <span style={{ color: "var(--vt-muted)" }}>As deep as you want to go.</span>
+            </h2>
+          </div>
+
+          <div className="vt-grid-3">
+            {OFFERS.map((offer) => (
+              <div
+                key={offer.tier}
+                className="vt-panel"
+                style={{
+                  padding: "32px 28px 36px",
+                  ...(offer.highlight
+                    ? {
+                        boxShadow:
+                          "inset 0 0 0 1px rgba(168,209,255,0.16), inset 0 1px 0 rgba(168,209,255,0.08), 0 22px 70px rgba(0,0,0,0.38), 0 0 40px rgba(168,209,255,0.06)",
+                      }
+                    : {}),
+                }}
+              >
+                <p
+                  className="vt-eyebrow"
+                  style={{ marginBottom: "20px", display: "inline-flex" }}
+                >
+                  {offer.tier}
+                </p>
+                <h3
+                  className="vt-heading-md"
+                  style={{ marginBottom: "12px" }}
+                >
+                  {offer.headline}
+                </h3>
+                <p
+                  className="vt-body"
+                  style={{ marginBottom: "28px", minHeight: "72px" }}
+                >
+                  {offer.body}
+                </p>
+                <Link
+                  href={offer.href}
+                  className={offer.highlight ? "vt-button-primary" : "vt-button-secondary"}
+                  style={{ display: "inline-flex" }}
+                >
+                  {offer.cta} <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Wide CTA panel ─────────────────────────────────────── */}
+      <section className="vt-section">
+        <div className="vt-container">
+          <div
+            className="vt-panel"
+            style={{
+              padding: "clamp(52px, 8vw, 96px) clamp(32px, 6vw, 80px)",
+              background:
+                "radial-gradient(circle at 50% 120%, rgba(168,209,255,0.10), transparent 50%)," +
+                "radial-gradient(circle at 20% 0%, rgba(65,88,124,0.14), transparent 40%)," +
+                "linear-gradient(180deg, rgba(18,25,37,0.96) 0%, rgba(11,17,25,0.98) 100%)",
+              textAlign: "center",
+            }}
+          >
+            <div className="vt-eyebrow" style={{ marginBottom: "20px", display: "inline-flex" }}>
+              Stay Informed
+            </div>
+            <h2
+              className="vt-heading-lg"
+              style={{ marginBottom: "16px", maxWidth: "560px", marginInline: "auto" }}
+            >
               Evidence-based updates.
               <br />
-              No noise.
+              <span style={{ color: "var(--vt-muted)" }}>No noise.</span>
             </h2>
-            <p className="text-white/40 text-sm mt-4 leading-relaxed">
+            <p
+              className="vt-copy"
+              style={{
+                marginBottom: "36px",
+                maxWidth: "420px",
+                marginInline: "auto",
+                fontSize: "var(--vt-text-sm)",
+              }}
+            >
               New products, science reviews, and formulation updates. No spam —
               unsubscribe anytime.
             </p>
+
             <form
               action={`mailto:contact@ventality.health?subject=Newsletter Signup`}
               method="get"
-              className="flex gap-2 mt-8 max-w-md mx-auto"
+              className="flex gap-2 justify-center flex-wrap"
+              style={{ maxWidth: "460px", margin: "0 auto" }}
             >
               <input
                 type="email"
                 name="body"
                 placeholder="your@email.com"
                 required
-                className="flex-1 bg-white/5 border border-white/10 rounded-sm px-4 py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-white/25"
+                style={{
+                  flex: "1 1 200px",
+                  minWidth: 0,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid var(--vt-line-strong)",
+                  borderRadius: "var(--vt-radius-pill)",
+                  padding: "0 18px",
+                  height: "44px",
+                  color: "var(--vt-text)",
+                  fontSize: "var(--vt-text-sm)",
+                  outline: "none",
+                }}
+                className="placeholder:opacity-40 focus:border-white/25 transition-colors"
               />
-              <button
-                type="submit"
-                className="px-6 py-2.5 bg-white text-black text-sm font-medium rounded-sm hover:bg-white/90 transition-colors whitespace-nowrap"
-              >
+              <button type="submit" className="vt-button-primary" style={{ flex: "0 0 auto" }}>
                 Subscribe
               </button>
             </form>
-            <p className="text-white/20 text-xs mt-3">
+
+            <p
+              className="mt-4"
+              style={{
+                fontSize: "var(--vt-text-xs)",
+                color: "var(--vt-muted-2)",
+                opacity: 0.7,
+              }}
+            >
               By subscribing you agree to our Privacy Policy.
             </p>
           </div>

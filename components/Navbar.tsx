@@ -46,13 +46,26 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 bg-[#0b0b0e] transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "border-b border-white/8"
+            ? "border-b"
             : "border-b border-transparent"
         )}
+        style={{
+          background: scrolled
+            ? "rgba(11,16,23,0.92)"
+            : "rgba(11,16,23,0.70)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderColor: scrolled ? "var(--vt-line)" : "transparent",
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          style={{
+            width: "min(1160px, calc(100% - 40px))",
+            marginInline: "auto",
+          }}
+        >
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
@@ -63,23 +76,33 @@ export default function Navbar() {
                 height={32}
                 className="w-8 h-8 object-contain mix-blend-screen"
               />
-              <span className="text-white font-semibold text-lg tracking-[0.08em] uppercase">
+              <span
+                className="font-semibold uppercase"
+                style={{
+                  color: "var(--vt-text)",
+                  fontSize: "var(--vt-text-base)",
+                  letterSpacing: "0.1em",
+                }}
+              >
                 Ventality
               </span>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-7">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={cn(
-                    "text-sm tracking-wide transition-colors",
-                    pathname === link.href
-                      ? "text-white"
-                      : "text-white/50 hover:text-white"
-                  )}
+                  style={{
+                    fontSize: "var(--vt-text-sm)",
+                    letterSpacing: "0.01em",
+                    color: pathname === link.href
+                      ? "var(--vt-text)"
+                      : "var(--vt-muted)",
+                    transition: "color var(--vt-duration-fast) ease",
+                  }}
+                  className="hover:text-white"
                 >
                   {link.label}
                 </Link>
@@ -88,34 +111,68 @@ export default function Navbar() {
 
             {/* Right actions */}
             <div className="flex items-center gap-4">
-              {/* Search */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="text-white/50 hover:text-white transition-colors"
                 aria-label="Search"
+                style={{
+                  color: "var(--vt-muted)",
+                  transition: "color var(--vt-duration-fast) ease",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                className="hover:text-white"
               >
-                <Search className="w-4.5 h-4.5" />
+                <Search className="w-[18px] h-[18px]" />
               </button>
 
-              {/* Cart */}
               <button
                 onClick={openCart}
-                className="relative text-white/50 hover:text-white transition-colors"
                 aria-label="Open cart"
+                style={{
+                  position: "relative",
+                  color: "var(--vt-muted)",
+                  transition: "color var(--vt-duration-fast) ease",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                className="hover:text-white"
               >
-                <ShoppingBag className="w-4.5 h-4.5" />
+                <ShoppingBag className="w-[18px] h-[18px]" />
                 {totalQuantity > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 bg-white text-black text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none">
+                  <span
+                    className="absolute -top-1.5 -right-1.5 flex items-center justify-center leading-none font-bold"
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      borderRadius: "999px",
+                      background: "var(--vt-lumen-core)",
+                      color: "#0A0F16",
+                      fontSize: "10px",
+                    }}
+                  >
                     {totalQuantity > 9 ? "9+" : totalQuantity}
                   </span>
                 )}
               </button>
 
-              {/* Mobile menu toggle */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden text-white/50 hover:text-white transition-colors"
+                className="md:hidden"
                 aria-label="Toggle menu"
+                style={{
+                  color: "var(--vt-muted)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
                 {mobileOpen ? (
                   <X className="w-5 h-5" />
@@ -136,11 +193,23 @@ export default function Navbar() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search products..."
-                  className="flex-1 bg-white/5 border border-white/10 rounded px-3 py-2 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-white/30"
+                  style={{
+                    flex: 1,
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid var(--vt-line-strong)",
+                    borderRadius: "var(--vt-radius-pill)",
+                    padding: "0 16px",
+                    height: "40px",
+                    color: "var(--vt-text)",
+                    fontSize: "var(--vt-text-sm)",
+                    outline: "none",
+                  }}
+                  className="placeholder:opacity-30 focus:border-white/25 transition-colors"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-white text-black text-sm font-medium rounded hover:bg-white/90 transition-colors"
+                  className="vt-button-primary"
+                  style={{ minHeight: "40px", padding: "0 18px" }}
                 >
                   Search
                 </button>
@@ -151,18 +220,36 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden bg-[#0f0f14] border-t border-white/10">
-            <nav className="px-4 py-6 space-y-4">
+          <div
+            className="md:hidden border-t"
+            style={{
+              background: "rgba(11,16,23,0.97)",
+              borderColor: "var(--vt-line)",
+            }}
+          >
+            <nav
+              style={{
+                padding: "24px 20px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+              }}
+            >
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={cn(
-                    "block text-base tracking-wide py-1",
-                    pathname === link.href
-                      ? "text-white"
-                      : "text-white/50 hover:text-white"
-                  )}
+                  style={{
+                    display: "block",
+                    padding: "10px 0",
+                    fontSize: "var(--vt-text-base)",
+                    letterSpacing: "0.01em",
+                    color: pathname === link.href
+                      ? "var(--vt-text)"
+                      : "var(--vt-muted)",
+                    transition: "color var(--vt-duration-fast) ease",
+                  }}
+                  className="hover:text-white"
                 >
                   {link.label}
                 </Link>
