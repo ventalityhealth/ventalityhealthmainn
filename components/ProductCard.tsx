@@ -43,7 +43,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       )}
     >
       {/* Image */}
-      <div className="relative aspect-square bg-[#f5f5f3] overflow-hidden">
+      <div className="relative aspect-square bg-[#f0ede8] overflow-hidden">
         {image ? (
           <Image
             src={image.url}
@@ -57,6 +57,15 @@ export default function ProductCard({ product, className }: ProductCardProps) {
             <span className="text-white/10 text-xs label-xs">{product.title}</span>
           </div>
         )}
+
+        {/* Vignette — fades the product photo edges into the dark card */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(19,19,25,0.55) 100%)",
+          }}
+        />
 
         {/* Quick add */}
         <button

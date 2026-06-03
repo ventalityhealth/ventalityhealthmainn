@@ -12,115 +12,198 @@ export default function TermsPage() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
         <p className="label-sm text-white/30 mb-3">Legal</p>
         <h1 className="text-3xl font-semibold text-white tracking-tight mb-2">Terms of Service</h1>
-        <p className="text-white/30 text-sm mb-10">Last updated: May 2026</p>
+        <p className="text-white/30 text-sm mb-10">Last updated: May 26, 2026</p>
 
         <div className="prose prose-sm prose-invert max-w-none text-white/50 leading-relaxed space-y-8
           [&_h2]:text-white/80 [&_h2]:font-medium [&_h2]:text-base [&_h2]:mt-8 [&_h2]:mb-3
           [&_p]:leading-relaxed [&_p]:mb-4">
 
+          <h2>1. Agreement to Terms</h2>
           <p>
-            By accessing or using this Site, you agree to be bound by these Terms of Service.
-            Please read them carefully. If you do not agree to these terms, do not use the Site.
+            These Terms of Service (&ldquo;Terms&rdquo;) constitute a legally binding agreement
+            between you (&ldquo;Customer,&rdquo; &ldquo;you,&rdquo; or &ldquo;your&rdquo;) and
+            Ventality (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), operating at
+            ventality.health. By accessing or using our Site or purchasing from us, you agree to
+            be bound by these Terms. If you do not agree, please do not use our Site.
+          </p>
+          <p>
+            You must be at least 18 years of age to use this Site or place an order. By using this
+            Site, you represent and warrant that you are 18 or older and legally capable of
+            entering into a binding contract.
           </p>
 
-          <h2>Use of the Site</h2>
+          <h2>2. Products and Services</h2>
           <p>
-            You agree to use this Site only for lawful purposes and in a manner that does not
-            infringe the rights of others. You may not use our products for any illegal or
-            unauthorized purpose.
+            Ventality sells branded health and wellness supplements. All products are manufactured
+            and fulfilled through Supliful (Brand On Demand, Inc.), a third-party dropshipping
+            platform. Products are produced to order and are subject to availability.
+          </p>
+          <p>
+            We reserve the right to modify, suspend, or discontinue any product or service at any
+            time without notice. Prices are subject to change without notice.
+          </p>
+          <p>
+            Product descriptions, images, and information are provided for general informational
+            purposes. We make no representations that the information is complete, accurate, or up
+            to date, though we strive to ensure accuracy.
           </p>
 
-          <h2>Products, Pricing &amp; Availability</h2>
+          <h2>3. Orders and Payment</h2>
           <p>
-            Prices for products are subject to change without notice. We reserve the right to
-            discontinue any product at any time. All products are manufactured to order by our
-            third-party fulfillment partner, Supliful (Brand On Demand Inc.), and are subject to
-            their production and inventory availability. We shall not be liable to you or any
-            third party for any modification, suspension, or discontinuance of a product or service.
+            By placing an order, you represent that the information you provide is accurate and
+            that you are authorized to use the payment method provided. All orders are subject to
+            acceptance and availability.
           </p>
           <p>
-            In the event a product is listed at an incorrect price due to a typographical error,
-            we reserve the right to refuse or cancel orders placed for that product.
+            We accept major credit and debit cards through our secure payment processor. Payment is
+            charged at the time of purchase. We will not process or ship any order until full
+            payment is received.
           </p>
-
-          <h2>Order Fulfillment</h2>
           <p>
-            Orders are fulfilled by Supliful from US-based fulfillment centers. By placing an
-            order, you authorize us to share your name, shipping address, and order details with
-            Supliful solely for fulfillment purposes. Fulfillment typically takes 2–5 business days
-            before shipment.
+            We reserve the right to refuse or cancel any order at our discretion, including orders
+            that appear fraudulent, that contain errors, or where product availability has changed.
           </p>
 
-          <h2>Shipping</h2>
+          <h2>4. Fulfillment and Production</h2>
           <p>
-            We offer free standard shipping on all orders within the contiguous United States.
-            Shipping to Alaska, Hawaii, and internationally may be available at additional cost.
-            Estimated delivery times are not guaranteed and may be affected by carrier delays,
-            customs processing, or other factors outside our control. Full details are available
-            in our{" "}
-            <a href="/shipping" className="text-white/60 hover:text-white">
-              Shipping Policy
+            Our products are fulfilled by Supliful, our third-party production and logistics
+            partner. Because products are produced to order:
+          </p>
+          <ul className="list-disc pl-5 space-y-1 text-white/50">
+            <li>Production times are estimates and are not guaranteed.</li>
+            <li>
+              Once an order has been sent to production, it cannot be modified or canceled.
+            </li>
+            <li>
+              We are not responsible for orders placed with incorrect shipping addresses. If you
+              provide an incorrect address and the package is returned, you will be responsible for
+              any reshipment costs.
+            </li>
+          </ul>
+          <p>
+            If you have an issue with your order, you must contact us at{" "}
+            <a href="mailto:contact@ventality.health" className="text-white/60 hover:text-white">
+              contact@ventality.health
+            </a>{" "}
+            within 30 days of delivery (or within 30 days of the estimated delivery date if the
+            order has not arrived).
+          </p>
+
+          <h2>5. Returns, Refunds, and Replacements</h2>
+          <p>
+            Because our products are custom-produced to order, we do not accept returns once an
+            order has been placed and sent to production.
+          </p>
+          <p>
+            Replacements may be issued if, after investigation, a product is found to be defective.
+            Please contact us at{" "}
+            <a href="mailto:contact@ventality.health" className="text-white/60 hover:text-white">
+              contact@ventality.health
+            </a>{" "}
+            with a description of the issue, photos (if applicable), and your order details.
+          </p>
+          <p>
+            Refunds are only issued if a replacement order is also found to be defective.
+          </p>
+          <p>
+            We are not responsible for and will not issue refunds or replacements for:
+          </p>
+          <ul className="list-disc pl-5 space-y-1 text-white/50">
+            <li>Orders with incorrect destination addresses provided by the customer</li>
+            <li>
+              Orders that are lost or undeliverable due to the customer&apos;s failure to be
+              available at the delivery address or failure to pay import duties
+            </li>
+            <li>Orders where tracking confirms delivery</li>
+          </ul>
+          <p>
+            If your order has not arrived within 30 calendar days of the estimated delivery date,
+            please contact us within that same 30-day window for assistance.
+          </p>
+
+          <h2>6. Health Disclaimers and Regulatory Compliance</h2>
+          <p>
+            Our products are dietary supplements. They are not intended to diagnose, treat, cure,
+            or prevent any disease. Statements about our products have not been evaluated by the
+            Food and Drug Administration.
+          </p>
+          <p>
+            You should consult a qualified healthcare professional before using any supplement,
+            particularly if you are pregnant, nursing, taking medications, or have a medical
+            condition.
+          </p>
+          <p>
+            You are responsible for ensuring that any product you purchase is legal and permitted
+            for use in your jurisdiction. We make no representations that products are appropriate
+            or available in all locations.
+          </p>
+
+          <h2>7. Intellectual Property</h2>
+          <p>
+            All content on the Site — including text, graphics, logos, images, and software — is
+            the property of Ventality or its licensors and is protected by applicable intellectual
+            property laws. You may not reproduce, distribute, or create derivative works from our
+            content without express written permission.
+          </p>
+
+          <h2>8. Limitation of Liability</h2>
+          <p>
+            To the fullest extent permitted by law, Ventality, its owners, employees, and
+            affiliates shall not be liable for any indirect, incidental, consequential, or punitive
+            damages arising out of or related to your use of the Site or products, even if advised
+            of the possibility of such damages.
+          </p>
+          <p>
+            Our total liability for any claim arising out of your use of the Site or purchase of
+            products shall not exceed the amount you paid for the specific order in question.
+          </p>
+
+          <h2>9. Indemnification</h2>
+          <p>
+            You agree to indemnify, defend, and hold harmless Ventality and its officers,
+            employees, and affiliates from any claims, damages, losses, or expenses (including
+            reasonable attorneys&rsquo; fees) arising from your violation of these Terms, your use
+            of the Site, or your violation of any law or the rights of any third party.
+          </p>
+
+          <h2>10. Warranty Disclaimer</h2>
+          <p className="uppercase text-white/40 text-xs leading-relaxed">
+            The site and products are provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo;
+            without warranties of any kind, either express or implied, including but not limited to
+            implied warranties of merchantability, fitness for a particular purpose, or
+            non-infringement. We do not warrant that the site will be uninterrupted, error-free, or
+            free of viruses or other harmful components.
+          </p>
+
+          <h2>11. Governing Law and Dispute Resolution</h2>
+          <p>
+            These Terms shall be governed by the laws of the State of Texas, without regard to its
+            conflict of laws principles. Any disputes arising from these Terms or your use of the
+            Site that cannot be resolved through direct communication shall be resolved through
+            binding arbitration in Tarrant County, Texas, in accordance with the rules of the
+            American Arbitration Association.
+          </p>
+          <p>
+            Any cause of action arising out of or relating to these Terms must be commenced within
+            one (1) year after the cause of action accrues; otherwise it is permanently barred.
+          </p>
+
+          <h2>12. Changes to Terms</h2>
+          <p>
+            We reserve the right to update or modify these Terms at any time. Changes are effective
+            immediately upon posting. Your continued use of the Site following any change
+            constitutes your acceptance of the new Terms.
+          </p>
+
+          <h2>13. Contact</h2>
+          <p>
+            Ventality<br />
+            12650 N Beach St, Ste 114 #7242<br />
+            Fort Worth, TX 76244<br />
+            Email:{" "}
+            <a href="mailto:contact@ventality.health" className="text-white/60 hover:text-white">
+              contact@ventality.health
             </a>
-            .
-          </p>
-
-          <h2>Returns &amp; Refunds</h2>
-          <p>
-            Our return and refund policy is governed by the terms set out in our{" "}
-            <a href="/returns" className="text-white/60 hover:text-white">
-              Return Policy
-            </a>
-            . Claims for damaged, defective, or incorrect orders must be submitted within 30 days
-            of delivery.
-          </p>
-
-          <h2>Health Disclaimer</h2>
-          <p>
-            The information on this Site is provided for educational and informational purposes
-            only and is not intended as medical advice. Our products are dietary supplements and
-            are not intended to diagnose, treat, cure, or prevent any disease. Always consult a
-            qualified healthcare provider before starting any new supplement regimen,
-            particularly if you are pregnant, nursing, have a medical condition, or are taking
-            medications.
-          </p>
-          <p>
-            These statements have not been evaluated by the Food and Drug Administration.
-          </p>
-
-          <h2>Intellectual Property</h2>
-          <p>
-            The Site and its original content, features, and functionality are owned by Ventality
-            and are protected by applicable intellectual property laws. You may not reproduce,
-            distribute, or create derivative works from any content on this Site without our
-            express written permission.
-          </p>
-
-          <h2>Limitation of Liability</h2>
-          <p>
-            To the fullest extent permitted by applicable law, Ventality shall not be liable for
-            any indirect, incidental, special, consequential, or punitive damages arising out of
-            your use of or inability to use the Site or products, even if advised of the
-            possibility of such damages. Our total liability to you for any claim arising from
-            your use of the Site or purchase of products shall not exceed the amount paid by you
-            for the relevant product.
-          </p>
-
-          <h2>Governing Law</h2>
-          <p>
-            These Terms shall be governed by and construed in accordance with the laws of the
-            United States, without regard to conflict of law provisions.
-          </p>
-
-          <h2>Changes to These Terms</h2>
-          <p>
-            We reserve the right to update these Terms at any time. Continued use of the Site
-            after changes are posted constitutes your acceptance of the revised Terms.
-          </p>
-
-          <h2>Contact</h2>
-          <p>
-            Questions about these Terms of Service should be sent to{" "}
-            <strong className="text-white/70">contact@ventality.health</strong>.
           </p>
         </div>
       </div>

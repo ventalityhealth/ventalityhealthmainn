@@ -100,37 +100,48 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Hero ───────────────────────────────────────────────── */}
+      {/*
+        The section uses the image's native 2.4:1 ratio (w/h = 7768/3236 ≈ 41.7%).
+        Source is 7768×3236 WebP — renders sharply at any viewport up to 4K.
+      */}
       <section
-        className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+        className="relative w-full flex items-center pt-16 overflow-hidden"
         style={{
-          background:
-            "radial-gradient(circle at 18% 10%, rgba(65,88,124,0.14), transparent 34%)," +
-            "radial-gradient(circle at 82% 6%, rgba(112,132,161,0.10), transparent 28%)," +
-            "linear-gradient(180deg, #0B1017 0%, #0C111A 40%, #0A0F16 100%)",
+          background: "#080C11",
+          paddingBottom: "41.6%",  /* 426/1024 — locks to image aspect ratio */
+          minHeight: "520px",       /* floor so text isn't squeezed on narrow screens */
         }}
       >
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)," +
-              "linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-          }}
+        {/* Hero image — 7768×3236 WebP, never upscaled, anchored right */}
+        <Image
+          src="/hero-products.webp"
+          alt="Ventality Performance Nutrition — L-Glutamine, Adaptogen Vitality, Sleep Formula"
+          fill
+          priority
+          quality={100}
+          className="object-contain object-right"
+          sizes="100vw"
         />
-        {/* Bottom fade */}
+
+        {/* Overlay — dense on the left (text), fully clear on the right (products) */}
         <div
-          className="absolute inset-x-0 bottom-0 h-48"
+          className="absolute inset-0"
           style={{
-            background: "linear-gradient(to bottom, transparent, #0A0F16)",
+            background:
+              "linear-gradient(to right, rgba(8,12,17,0.94) 0%, rgba(8,12,17,0.80) 32%, rgba(8,12,17,0.20) 55%, rgba(8,12,17,0.0) 75%)",
           }}
         />
 
-        <div className="relative vt-container py-28">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left — copy */}
-            <div>
+        {/* Bottom fade into site bg */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-32"
+          style={{ background: "linear-gradient(to bottom, transparent, #0A0F16)" }}
+        />
+
+        {/* Text — absolutely positioned so it doesn't affect section height */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="vt-container w-full">
+            <div className="max-w-xl">
               <div className="vt-eyebrow mb-8">
                 <span
                   className="w-1.5 h-1.5 rounded-full"
@@ -141,14 +152,10 @@ export default async function HomePage() {
 
               <h1 className="vt-heading-xl mb-6">
                 Built on{" "}
-                <span style={{ fontStyle: "italic", fontWeight: 300 }}>
-                  science.
-                </span>
+                <span style={{ fontStyle: "italic", fontWeight: 300 }}>science.</span>
                 <br />
                 Backed by{" "}
-                <span style={{ fontStyle: "italic", fontWeight: 300 }}>
-                  results.
-                </span>
+                <span style={{ fontStyle: "italic", fontWeight: 300 }}>results.</span>
               </h1>
 
               <p className="vt-copy max-w-lg mb-10">
@@ -166,7 +173,6 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              {/* Mini trust dots */}
               <div className="flex flex-wrap gap-6 mt-10">
                 {["COA Available", "FDA-Registered", "cGMP Certified", "30-Day Guarantee"].map((t) => (
                   <span key={t} className="flex items-center gap-1.5">
@@ -186,68 +192,6 @@ export default async function HomePage() {
                   </span>
                 ))}
               </div>
-            </div>
-
-            {/* Right — product mosaic */}
-            <div className="hidden lg:grid grid-cols-2 gap-3">
-              {featured.slice(0, 4).map((product) => {
-                const image = product.images.edges[0]?.node;
-                return (
-                  <Link
-                    key={product.id}
-                    href={`/products/${product.handle}`}
-                    className="vt-panel vt-panel--interactive group"
-                    style={{ display: "block" }}
-                  >
-                    <div
-                      className="relative overflow-hidden"
-                      style={{
-                        aspectRatio: "1",
-                        borderRadius: "var(--vt-radius-card) var(--vt-radius-card) 0 0",
-                        background: "#F5F5F3",
-                      }}
-                    >
-                      {image ? (
-                        <Image
-                          src={image.url}
-                          alt={image.altText ?? product.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          sizes="(max-width: 1200px) 50vw, 25vw"
-                        />
-                      ) : (
-                        <div
-                          className="w-full h-full flex items-center justify-center"
-                          style={{ background: "var(--vt-bg-3)" }}
-                        >
-                          <span
-                            style={{
-                              color: "var(--vt-muted-2)",
-                              fontSize: "var(--vt-text-xs)",
-                              textAlign: "center",
-                              padding: "0 16px",
-                            }}
-                          >
-                            {product.title}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-3">
-                      <p
-                        className="truncate"
-                        style={{
-                          color: "var(--vt-text-soft)",
-                          fontSize: "var(--vt-text-sm)",
-                          fontWeight: 500,
-                        }}
-                      >
-                        {product.title}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })}
             </div>
           </div>
         </div>
