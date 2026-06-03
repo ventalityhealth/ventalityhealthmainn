@@ -1,26 +1,26 @@
 import React from "react";
-import { ShieldCheck, FlaskConical, Building2, RotateCcw } from "lucide-react";
+import { Truck, Globe, Clock, RotateCcw } from "lucide-react";
 
 const TRUST_ITEMS = [
   {
-    icon: ShieldCheck,
-    title: "cGMP-Compliant",
-    subtitle: "Manufacturing",
+    icon: Truck,
+    title: "Free US Shipping",
+    subtitle: "On every order, no minimum",
   },
   {
-    icon: Building2,
-    title: "FDA-Registered",
-    subtitle: "Facilities",
+    icon: Globe,
+    title: "Free International Shipping",
+    subtitle: "Delivered to 35+ countries",
   },
   {
-    icon: FlaskConical,
-    title: "Certificate of Analysis",
-    subtitle: "Available on Request",
+    icon: Clock,
+    title: "Ships in 2–5 Days",
+    subtitle: "Made to order, fresh every time",
   },
   {
     icon: RotateCcw,
     title: "30-Day Guarantee",
-    subtitle: "Satisfaction Backed",
+    subtitle: "Not satisfied? We'll make it right",
   },
 ];
 
@@ -32,10 +32,7 @@ export default function TrustBar() {
           {TRUST_ITEMS.map((item) => {
             const Icon = item.icon;
             return (
-              <div
-                key={item.title}
-                className="flex items-center gap-3"
-              >
+              <div key={item.title} className="flex items-center gap-3">
                 <div className="flex-shrink-0">
                   <Icon className="w-5 h-5 text-white/40" strokeWidth={1.5} />
                 </div>

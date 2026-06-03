@@ -1,19 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowRight,
-  ChevronRight,
-  FlaskConical,
-  Zap,
-  Leaf,
-  ShieldCheck,
-  Microscope,
-  Layers,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import TrustBar from "@/components/TrustBar";
 import ProductCard from "@/components/ProductCard";
+import SupplementExplorer from "@/components/SupplementExplorer";
+import ConversionSequence from "@/components/ConversionSequence";
 import { getProducts, MOCK_PRODUCTS } from "@/lib/shopify";
 
 export const revalidate = 60;
@@ -26,73 +18,6 @@ async function getFeaturedProducts() {
   return MOCK_PRODUCTS.slice(0, 4);
 }
 
-/* ── Capability card data ─────────────────────────────────────── */
-const CAPABILITIES = [
-  {
-    icon: Leaf,
-    label: "Wellness Foundations",
-    body: "Vitamins, minerals, and daily essentials that support the body's baseline function.",
-    tag: "wellness",
-  },
-  {
-    icon: Zap,
-    label: "Performance",
-    body: "Science-backed formulas to support strength, endurance, and active recovery.",
-    tag: "performance",
-  },
-  {
-    icon: FlaskConical,
-    label: "Body Composition",
-    body: "Metabolic support compounds for active individuals with defined physique goals.",
-    tag: "weight-management",
-  },
-  {
-    icon: Microscope,
-    label: "Ingredient Transparency",
-    body: "Every compound listed by exact form and dose. No blends. No proprietary obfuscation.",
-    tag: "transparency",
-  },
-  {
-    icon: ShieldCheck,
-    label: "cGMP & FDA-Registered",
-    body: "All products manufactured under strict cGMP conditions in FDA-registered facilities.",
-    tag: "compliance",
-  },
-  {
-    icon: Layers,
-    label: "Stackable Routines",
-    body: "Products formulated to work together. Build a routine that compounds over time.",
-    tag: "stacks",
-  },
-];
-
-/* ── Offer cards ──────────────────────────────────────────────── */
-const OFFERS = [
-  {
-    tier: "Single Product",
-    headline: "Start with one.",
-    body: "Choose a single, research-backed formula and build your baseline. Free shipping on orders over $50.",
-    cta: "Browse Products",
-    href: "/shop",
-    highlight: false,
-  },
-  {
-    tier: "Curated Stack",
-    headline: "Build a routine.",
-    body: "Pre-assembled stacks designed around specific goals. Save on multi-product bundles and simplify your protocol.",
-    cta: "View Stacks",
-    href: "/shop?tag=bundles",
-    highlight: true,
-  },
-  {
-    tier: "Full Protocol",
-    headline: "Commit to the long game.",
-    body: "Subscribe for monthly delivery and lock in the best per-unit pricing. Pause or cancel anytime.",
-    cta: "Subscribe & Save",
-    href: "/shop",
-    highlight: false,
-  },
-];
 
 export default async function HomePage() {
   const featured = await getFeaturedProducts();
@@ -101,34 +26,54 @@ export default async function HomePage() {
     <>
       {/* ── Hero ───────────────────────────────────────────────── */}
       {/*
-        The section uses the image's native 2.4:1 ratio (w/h = 7768/3236 ≈ 41.7%).
-        Source is 7768×3236 WebP — renders sharply at any viewport up to 4K.
+        Desktop: hero-products.webp (7768×3236, 2.4:1) — object-cover object-right
+        Mobile:  hero-products-mobile.jpg (768×1024, portrait) — object-cover object-center
+        Section height is viewport-relative, not aspect-ratio locked, so it fills well at all sizes.
       */}
       <section
         className="relative w-full flex items-center pt-16 overflow-hidden"
         style={{
           background: "#080C11",
-          paddingBottom: "41.6%",  /* 426/1024 — locks to image aspect ratio */
-          minHeight: "520px",       /* floor so text isn't squeezed on narrow screens */
+          minHeight: "clamp(560px, 72vh, 860px)",
         }}
       >
-        {/* Hero image — 7768×3236 WebP, never upscaled, anchored right */}
+        {/* Desktop image — hidden on mobile */}
         <Image
           src="/hero-products.webp"
-          alt="Ventality Performance Nutrition — L-Glutamine, Adaptogen Vitality, Sleep Formula"
+          alt="Ventality supplements arranged on dark stone and wood."
           fill
           priority
           quality={100}
-          className="object-contain object-right"
+          className="hidden md:block object-cover object-right"
           sizes="100vw"
         />
 
-        {/* Overlay — dense on the left (text), fully clear on the right (products) */}
+        {/* Mobile image — hidden on desktop */}
+        <Image
+          src="/hero-products-mobile.jpg"
+          alt="Ventality supplements arranged on dark stone and wood."
+          fill
+          priority
+          quality={100}
+          className="block md:hidden object-cover object-center"
+          sizes="100vw"
+        />
+
+        {/* Desktop overlay — dark left third for text, clears toward products on right */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden md:block"
           style={{
             background:
               "linear-gradient(to right, rgba(8,12,17,0.94) 0%, rgba(8,12,17,0.80) 32%, rgba(8,12,17,0.20) 55%, rgba(8,12,17,0.0) 75%)",
+          }}
+        />
+
+        {/* Mobile overlay — top-heavy so text stays readable over the product image */}
+        <div
+          className="absolute inset-0 block md:hidden"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(8,12,17,0.88) 0%, rgba(8,12,17,0.60) 40%, rgba(8,12,17,0.30) 70%, rgba(8,12,17,0.10) 100%)",
           }}
         />
 
@@ -139,7 +84,7 @@ export default async function HomePage() {
         />
 
         {/* Text — absolutely positioned so it doesn't affect section height */}
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-0 flex items-start md:items-center pt-24 md:pt-0">
           <div className="vt-container w-full">
             <div className="max-w-xl">
               <div className="vt-eyebrow mb-8">
@@ -173,25 +118,6 @@ export default async function HomePage() {
                 </Link>
               </div>
 
-              <div className="flex flex-wrap gap-6 mt-10">
-                {["COA Available", "FDA-Registered", "cGMP Certified", "30-Day Guarantee"].map((t) => (
-                  <span key={t} className="flex items-center gap-1.5">
-                    <span
-                      className="w-1 h-1 rounded-full"
-                      style={{ background: "var(--vt-line-strong)" }}
-                    />
-                    <span
-                      style={{
-                        fontSize: "var(--vt-text-xs)",
-                        color: "var(--vt-muted-2)",
-                        letterSpacing: "0.07em",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -263,78 +189,8 @@ export default async function HomePage() {
         <hr className="vt-horizon" />
       </div>
 
-      {/* ── Capabilities grid (6 cards) ────────────────────────── */}
-      <section className="vt-section">
-        <div className="vt-container">
-          <div
-            className="text-center"
-            style={{ marginBottom: "clamp(36px, 5vw, 64px)" }}
-          >
-            <div className="vt-eyebrow" style={{ marginBottom: "16px" }}>
-              <Sparkles className="w-3 h-3" />
-              What we cover
-            </div>
-            <h2 className="vt-heading-lg">
-              Every part of your protocol,
-              <br />
-              <span style={{ color: "var(--vt-muted)" }}>engineered to work together.</span>
-            </h2>
-          </div>
-
-          <div className="vt-grid-3">
-            {CAPABILITIES.map((cap) => {
-              const Icon = cap.icon;
-              return (
-                <Link
-                  key={cap.tag}
-                  href={`/shop?tag=${cap.tag}`}
-                  className="vt-panel vt-panel--interactive"
-                  style={{ padding: "28px 24px 32px", display: "block" }}
-                >
-                  <div
-                    className="flex items-center justify-center w-10 h-10 rounded-xl mb-5"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid var(--vt-line)",
-                    }}
-                  >
-                    <Icon
-                      className="w-5 h-5"
-                      style={{ color: "var(--vt-accent-blue)" }}
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                  <p
-                    className="font-semibold mb-2"
-                    style={{
-                      color: "var(--vt-text)",
-                      fontSize: "var(--vt-text-base)",
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    {cap.label}
-                  </p>
-                  <p
-                    style={{
-                      color: "var(--vt-muted)",
-                      fontSize: "var(--vt-text-sm)",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {cap.body}
-                  </p>
-                  <div
-                    className="flex items-center gap-1.5 mt-5"
-                    style={{ color: "var(--vt-muted-2)", fontSize: "var(--vt-text-xs)" }}
-                  >
-                    Explore <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ── Supplement Explorer ─────────────────────────────────── */}
+      <SupplementExplorer />
 
       {/* ── Horizon divider ────────────────────────────────────── */}
       <div className="vt-container">
@@ -344,9 +200,16 @@ export default async function HomePage() {
       {/* ── Workbench / Philosophy section ─────────────────────── */}
       <section className="vt-section">
         <div className="vt-container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Single framed panel — text left, image right */}
+          <div
+            className="vt-panel overflow-hidden grid lg:grid-cols-2"
+            style={{ minHeight: "480px", padding: 0 }}
+          >
             {/* Left — editorial copy */}
-            <div>
+            <div
+              className="flex flex-col justify-center p-8 md:p-12"
+              style={{ borderRight: "1px solid var(--vt-line)" }}
+            >
               <div className="vt-eyebrow" style={{ marginBottom: "20px" }}>
                 Philosophy
               </div>
@@ -367,69 +230,38 @@ export default async function HomePage() {
                 evidence supports. Certificates of Analysis are available upon
                 request. What you read on the label is what you get.
               </p>
-              <Link href="/about" className="vt-button-secondary" style={{ display: "inline-flex" }}>
+              <Link href="/about" className="vt-button-secondary" style={{ display: "inline-flex", alignSelf: "flex-start" }}>
                 Learn more about Ventality
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            {/* Right — stat panels */}
-            <div className="vt-grid-2">
-              {[
-                {
-                  stat: "cGMP",
-                  label: "Compliant Manufacturing",
-                  sub: "All products, every batch",
-                },
-                {
-                  stat: "FDA",
-                  label: "Registered Facilities",
-                  sub: "Every supplier audited",
-                },
-                {
-                  stat: "COA",
-                  label: "Certificate of Analysis",
-                  sub: "Available on request",
-                },
-                {
-                  stat: "30-Day",
-                  label: "Satisfaction Guarantee",
-                  sub: "No questions asked",
-                },
-              ].map((item) => (
-                <div key={item.stat} className="vt-panel" style={{ padding: "24px" }}>
-                  <p
-                    className="font-bold"
-                    style={{
-                      fontSize: "1.5rem",
-                      letterSpacing: "-0.04em",
-                      color: "var(--vt-text)",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {item.stat}
-                  </p>
-                  <p
-                    className="font-medium mt-2"
-                    style={{
-                      fontSize: "var(--vt-text-sm)",
-                      color: "var(--vt-text-soft)",
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {item.label}
-                  </p>
-                  <p
-                    className="mt-1"
-                    style={{
-                      fontSize: "var(--vt-text-xs)",
-                      color: "var(--vt-muted-2)",
-                    }}
-                  >
-                    {item.sub}
-                  </p>
-                </div>
-              ))}
+            {/* Right — lifestyle image flush inside the frame */}
+            <div className="relative min-h-[320px] lg:min-h-0">
+              {/* Desktop landscape */}
+              <Image
+                src="/lifestyle-desktop.jpg"
+                alt="Ventality — disciplined daily routine"
+                fill
+                className="hidden md:block object-cover object-center"
+                sizes="50vw"
+              />
+              {/* Mobile portrait */}
+              <Image
+                src="/lifestyle-mobile.jpg"
+                alt="Ventality — disciplined daily routine"
+                fill
+                className="block md:hidden object-cover object-bottom"
+                sizes="100vw"
+              />
+              {/* Left-edge fade into the panel divider on desktop */}
+              <div
+                className="absolute inset-0 hidden md:block"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(10,15,22,0.45) 0%, transparent 30%)",
+                }}
+              />
             </div>
           </div>
         </div>
@@ -440,68 +272,8 @@ export default async function HomePage() {
         <hr className="vt-horizon" />
       </div>
 
-      {/* ── Offer cards ────────────────────────────────────────── */}
-      <section className="vt-section">
-        <div className="vt-container">
-          <div
-            className="text-center"
-            style={{ marginBottom: "clamp(36px, 5vw, 64px)" }}
-          >
-            <div className="vt-eyebrow" style={{ marginBottom: "16px" }}>
-              How to start
-            </div>
-            <h2 className="vt-heading-lg">
-              One entry point.
-              <br />
-              <span style={{ color: "var(--vt-muted)" }}>As deep as you want to go.</span>
-            </h2>
-          </div>
-
-          <div className="vt-grid-3">
-            {OFFERS.map((offer) => (
-              <div
-                key={offer.tier}
-                className="vt-panel"
-                style={{
-                  padding: "32px 28px 36px",
-                  ...(offer.highlight
-                    ? {
-                        boxShadow:
-                          "inset 0 0 0 1px rgba(168,209,255,0.16), inset 0 1px 0 rgba(168,209,255,0.08), 0 22px 70px rgba(0,0,0,0.38), 0 0 40px rgba(168,209,255,0.06)",
-                      }
-                    : {}),
-                }}
-              >
-                <p
-                  className="vt-eyebrow"
-                  style={{ marginBottom: "20px", display: "inline-flex" }}
-                >
-                  {offer.tier}
-                </p>
-                <h3
-                  className="vt-heading-md"
-                  style={{ marginBottom: "12px" }}
-                >
-                  {offer.headline}
-                </h3>
-                <p
-                  className="vt-body"
-                  style={{ marginBottom: "28px", minHeight: "72px" }}
-                >
-                  {offer.body}
-                </p>
-                <Link
-                  href={offer.href}
-                  className={offer.highlight ? "vt-button-primary" : "vt-button-secondary"}
-                  style={{ display: "inline-flex" }}
-                >
-                  {offer.cta} <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ── Conversion Sequence ─────────────────────────────────── */}
+      <ConversionSequence />
 
       {/* ── Wide CTA panel ─────────────────────────────────────── */}
       <section className="vt-section">
