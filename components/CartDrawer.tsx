@@ -161,7 +161,7 @@ function CartItemLive({
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-white text-sm font-medium truncate">
+        <p className="text-white text-sm font-medium line-clamp-2 break-words">
           {line.merchandise.product.title}
         </p>
         <p className="text-white/40 text-xs mt-0.5">{line.merchandise.title}</p>
@@ -232,7 +232,7 @@ function CartItemLocal({
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-white text-sm font-medium truncate">{item.title}</p>
+        <p className="text-white text-sm font-medium line-clamp-2 break-words">{item.title}</p>
         <p className="text-white/40 text-xs mt-0.5">{item.variantTitle}</p>
         <p className="text-white/60 text-sm mt-1">
           {formatPrice(item.price.amount, item.price.currencyCode)}

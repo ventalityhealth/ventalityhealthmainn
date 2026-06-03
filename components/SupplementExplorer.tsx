@@ -147,7 +147,7 @@ export default function SupplementExplorer() {
               <button
                 key={p.id}
                 onClick={() => setActive(p.id)}
-                className="flex-1 px-4 py-4 text-left transition-all duration-200 relative"
+                className="flex-1 px-3 sm:px-4 py-4 text-left transition-all duration-200 relative"
                 style={{
                   background:
                     active === p.id
@@ -182,15 +182,9 @@ export default function SupplementExplorer() {
           </div>
 
           {/* Detail panel */}
-          <div
-            className="grid md:grid-cols-2 gap-0"
-            style={{ minHeight: "360px" }}
-          >
+          <div className="grid md:grid-cols-2 gap-0 md:min-h-[360px]">
             {/* Left — description + use */}
-            <div
-              className="p-6 md:p-8"
-              style={{ borderRight: "1px solid var(--vt-line)" }}
-            >
+            <div className="p-6 md:p-8 border-b border-white/8 md:border-b-0 md:border-r">
               <p
                 className="text-xs font-medium tracking-widest uppercase mb-4"
                 style={{ color: "var(--vt-muted-2)" }}
@@ -223,7 +217,7 @@ export default function SupplementExplorer() {
                         className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
                         style={{ background: "rgba(168,209,255,0.5)" }}
                       />
-                      <div>
+                      <div className="min-w-0">
                         <span
                           className="text-sm font-medium"
                           style={{ color: "var(--vt-text-soft)" }}
@@ -231,7 +225,7 @@ export default function SupplementExplorer() {
                           {ing.name}
                         </span>
                         <span
-                          className="text-xs ml-2"
+                          className="text-xs block sm:inline sm:ml-2"
                           style={{ color: "var(--vt-muted-2)" }}
                         >
                           {ing.detail}
@@ -277,15 +271,15 @@ export default function SupplementExplorer() {
                 <div className="space-y-4">
                   {product.support.map((area) => (
                     <div key={area.label}>
-                      <div className="flex justify-between items-center mb-1.5">
+                      <div className="flex justify-between items-center gap-3 mb-1.5">
                         <span
-                          className="text-sm"
+                          className="text-sm min-w-0"
                           style={{ color: "var(--vt-text-soft)" }}
                         >
                           {area.label}
                         </span>
                         <span
-                          className="text-xs"
+                          className="text-xs flex-shrink-0"
                           style={{ color: "var(--vt-muted-2)" }}
                         >
                           {["", "Low", "Moderate", "Moderate", "High", "Primary"][area.level]}

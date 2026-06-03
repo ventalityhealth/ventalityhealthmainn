@@ -32,15 +32,15 @@ export default function TrustBar() {
           {TRUST_ITEMS.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="flex items-center gap-3">
+              <div key={item.title} className="flex items-center gap-3 min-w-0">
                 <div className="flex-shrink-0">
                   <Icon className="w-5 h-5 text-white/40" strokeWidth={1.5} />
                 </div>
-                <div>
-                  <p className="text-white text-sm font-medium leading-tight">
+                <div className="min-w-0">
+                  <p className="text-white text-sm font-medium leading-snug break-words">
                     {item.title}
                   </p>
-                  <p className="text-white/40 text-xs mt-0.5">{item.subtitle}</p>
+                  <p className="text-white/40 text-xs mt-0.5 break-words">{item.subtitle}</p>
                 </div>
               </div>
             );

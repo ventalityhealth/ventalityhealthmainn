@@ -202,13 +202,12 @@ export default async function HomePage() {
         <div className="vt-container">
           {/* Single framed panel — text left, image right */}
           <div
-            className="vt-panel overflow-hidden grid lg:grid-cols-2"
-            style={{ minHeight: "480px", padding: 0 }}
+            className="vt-panel overflow-hidden grid lg:grid-cols-2 lg:min-h-[480px]"
+            style={{ padding: 0 }}
           >
             {/* Left — editorial copy */}
             <div
-              className="flex flex-col justify-center p-8 md:p-12"
-              style={{ borderRight: "1px solid var(--vt-line)" }}
+              className="flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-white/8"
             >
               <div className="vt-eyebrow" style={{ marginBottom: "20px" }}>
                 Philosophy

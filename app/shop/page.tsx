@@ -60,7 +60,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <div className="border-b border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <p className="label-sm text-white/30 mb-2">Catalog</p>
-          <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight break-words">
             {q ? (
               <>
                 Results for{" "}

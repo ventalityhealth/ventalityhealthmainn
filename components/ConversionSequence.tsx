@@ -93,11 +93,9 @@ function Step({ step, index }: { step: (typeof STEPS)[number]; index: number }) 
       >
         {/* Number side */}
         <div
-          className={`flex flex-col justify-between p-8 md:p-12 ${isEven ? "" : "lg:order-2"}`}
-          style={{
-            borderRight: isEven ? "1px solid var(--vt-line)" : "none",
-            borderLeft: isEven ? "none" : "1px solid var(--vt-line)",
-          }}
+          className={`flex flex-col justify-between p-6 sm:p-8 md:p-12 border-b border-white/8 lg:border-b-0 ${
+            isEven ? "lg:border-r" : "lg:order-2 lg:border-l"
+          }`}
         >
           {/* Large step number */}
           <div
@@ -119,7 +117,7 @@ function Step({ step, index }: { step: (typeof STEPS)[number]; index: number }) 
           {/* Proof points */}
           <div className="mt-8 space-y-2">
             {step.proof.map((p) => (
-              <div key={p} className="flex items-center gap-2.5">
+              <div key={p} className="flex items-center gap-2.5 min-w-0">
                 <span
                   className="w-1 h-1 rounded-full flex-shrink-0"
                   style={{
@@ -129,6 +127,7 @@ function Step({ step, index }: { step: (typeof STEPS)[number]; index: number }) 
                   }}
                 />
                 <span
+                  className="min-w-0 break-words"
                   style={{
                     fontSize: "var(--vt-text-xs)",
                     color: "var(--vt-muted-2)",
@@ -144,7 +143,7 @@ function Step({ step, index }: { step: (typeof STEPS)[number]; index: number }) 
 
         {/* Content side */}
         <div
-          className={`flex flex-col justify-center p-8 md:p-12 ${isEven ? "" : "lg:order-1"}`}
+          className={`flex flex-col justify-center p-6 sm:p-8 md:p-12 ${isEven ? "" : "lg:order-1"}`}
         >
           <div className="vt-eyebrow mb-5">{step.eyebrow}</div>
 

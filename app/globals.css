@@ -240,7 +240,7 @@ html {
 
 /* Layout */
 .vt-container {
-  width: min(1160px, calc(100% - 40px));
+  width: min(1280px, calc(100% - 40px));
   margin-inline: auto;
 }
 
@@ -267,6 +267,17 @@ html {
   color: var(--vt-text);
 }
 
+@media (max-width: 640px) {
+  .vt-heading-xl {
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+  .vt-heading-lg {
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+}
+
 .vt-heading-md {
   margin: 0;
   font-size: var(--vt-text-2xl);
@@ -288,15 +299,16 @@ html {
 .vt-chip {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.45rem;
   min-height: 30px;
-  padding: 0 12px;
+  padding: 5px 12px 6px;
   border-radius: var(--vt-radius-pill);
   border: 1px solid var(--vt-line);
   background: rgba(255,255,255,0.02);
   color: var(--vt-text-soft);
   font-size: var(--vt-text-xs);
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: 0.06em;
 }
 

@@ -56,12 +56,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <div className="pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-white/30 mb-10">
+        <nav className="flex items-center gap-2 text-xs text-white/30 mb-10 overflow-hidden">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3" />
           <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-white/50">{product.title}</span>
+          <span className="text-white/50 truncate">{product.title}</span>
         </nav>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
@@ -72,7 +72,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div>
             {/* Tags */}
             {product.tags.length > 0 && (
-              <div className="flex gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {product.tags.slice(0, 2).map((tag) => (
                   <Badge
                     key={tag}
@@ -85,7 +85,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
             )}
 
-            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight leading-tight break-words">
               {product.title}
             </h1>
 
