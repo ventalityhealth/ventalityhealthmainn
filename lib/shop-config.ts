@@ -33,6 +33,11 @@ export interface BenefitFilter {
   icon: LucideIcon;
   /** Shopify tags that map a product into this benefit bucket */
   tags: string[];
+  /**
+   * Fallback keywords checked against product title + description
+   * when no tag match is found. Case-insensitive substring match.
+   */
+  keywords?: string[];
 }
 
 export const BENEFIT_FILTERS: BenefitFilter[] = [
@@ -41,70 +46,113 @@ export const BENEFIT_FILTERS: BenefitFilter[] = [
     label: "Recovery",
     description: "Faster repair, less downtime",
     icon: Zap,
-    tags: ["recovery", "muscle-recovery", "repair"],
+    tags: [
+      "recovery", "muscle-recovery", "repair", "performance",
+      "amino-acid", "amino acids", "protein", "muscle", "creatine",
+      "glutamine", "l-glutamine",
+    ],
+    /** Keywords checked against product title + description */
+    keywords: ["recovery", "glutamine", "creatine", "muscle", "amino", "repair"],
   },
   {
     key: "sleep",
     label: "Sleep",
     description: "Deep, restorative rest",
     icon: Moon,
-    tags: ["sleep", "sleep-support", "rest", "melatonin"],
+    tags: [
+      "sleep", "sleep-support", "rest", "melatonin",
+      "sleep formula", "sleep-formula", "relaxation",
+    ],
+    keywords: ["sleep", "melatonin", "rest", "passionflower", "chamomile", "theanine"],
   },
   {
     key: "immunity",
     label: "Immune Support",
     description: "Fortify your defenses",
     icon: Shield,
-    tags: ["immunity", "immune-support", "antioxidant"],
+    tags: [
+      "immunity", "immune-support", "antioxidant", "immune",
+      "vitamin-c", "zinc", "elderberry", "chaga",
+    ],
+    keywords: ["immune", "immunity", "antioxidant", "chaga", "zinc"],
   },
   {
     key: "energy",
     label: "Energy & Focus",
     description: "Clarity and sustained output",
     icon: Brain,
-    tags: ["energy", "focus", "cognitive", "adaptogen", "mushroom", "nootropic"],
+    tags: [
+      "energy", "focus", "cognitive", "adaptogen", "mushroom", "nootropic",
+      "lions-mane", "lion's-mane", "lion mane", "reishi", "performance",
+      "vitality", "brain",
+    ],
+    keywords: ["energy", "focus", "cognitive", "adaptogen", "vitality", "lion", "reishi", "mushroom", "clarity"],
   },
   {
     key: "gut",
     label: "Gut Health",
     description: "The foundation of wellbeing",
     icon: Leaf,
-    tags: ["gut", "gut-health", "probiotic", "digestive", "l-glutamine"],
+    tags: [
+      "gut", "gut-health", "probiotic", "digestive", "l-glutamine",
+      "glutamine", "intestinal", "digestion",
+    ],
+    keywords: ["gut", "glutamine", "probiotic", "digestive", "intestinal", "l-glutamine"],
   },
   {
     key: "calm",
     label: "Stress & Calm",
     description: "Blunt cortisol, stay sharp",
     icon: Wind,
-    tags: ["stress-relief", "relaxation", "calm", "adaptogen", "ashwagandha"],
+    tags: [
+      "stress-relief", "relaxation", "calm", "adaptogen", "ashwagandha",
+      "reishi", "mushroom", "anxiety", "cortisol",
+    ],
+    keywords: ["stress", "calm", "relax", "adaptogen", "ashwagandha", "reishi", "cortisol", "passionflower"],
   },
   {
     key: "body",
     label: "Body Composition",
     description: "Lean, strong, defined",
     icon: Activity,
-    tags: ["weight-management", "thermogenic", "fat-loss", "metabolism"],
+    tags: [
+      "weight-management", "thermogenic", "fat-loss", "metabolism",
+      "body-composition", "lean", "fat loss",
+    ],
+    keywords: ["thermogenic", "fat", "metabolism", "body composition", "lean", "weight"],
   },
   {
     key: "daily",
     label: "Daily Wellness",
     description: "Baseline support for life",
     icon: Sun,
-    tags: ["wellness", "vitamin-d", "magnesium", "omega", "multivitamin", "mineral"],
+    tags: [
+      "wellness", "vitamin-d", "magnesium", "omega", "multivitamin", "mineral",
+      "daily", "foundation", "general wellness", "vitamins",
+    ],
+    keywords: ["vitamin", "magnesium", "omega", "daily", "wellness", "mineral"],
   },
   {
     key: "joint",
     label: "Joint & Skin",
     description: "Rebuild from the inside out",
     icon: Droplets,
-    tags: ["collagen", "joint-health", "skin", "cartilage", "connective-tissue"],
+    tags: [
+      "collagen", "joint-health", "skin", "cartilage", "connective-tissue",
+      "joints", "collagen peptides", "hyaluronic",
+    ],
+    keywords: ["collagen", "joint", "skin", "cartilage", "connective"],
   },
   {
     key: "heart",
     label: "Heart Health",
     description: "Long-term cardiovascular care",
     icon: Heart,
-    tags: ["cardiovascular", "heart", "omega", "cholesterol", "blood-pressure"],
+    tags: [
+      "cardiovascular", "heart", "omega", "cholesterol", "blood-pressure",
+      "omega-3", "epa", "dha", "fish-oil",
+    ],
+    keywords: ["omega", "cardiovascular", "heart", "cholesterol", "epa", "dha", "fish oil"],
   },
 ];
 

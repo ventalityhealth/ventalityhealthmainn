@@ -9,8 +9,20 @@ import {
   BENEFIT_FILTERS,
   SORT_OPTIONS,
   detectFormat,
+  type BenefitFilter,
 } from "@/lib/shop-config";
 import type { ShopifyProduct } from "@/lib/shopify";
+
+/** Matches a product to a benefit via tags first, then title/description keywords */
+function productMatchesBenefit(p: ShopifyProduct, b: BenefitFilter): boolean {
+  const productTags = p.tags.map((t) => t.toLowerCase());
+  if (productTags.some((t) => b.tags.includes(t))) return true;
+  if (b.keywords && b.keywords.length > 0) {
+    const haystack = `${p.title} ${p.description}`.toLowerCase();
+    return b.keywords.some((kw) => haystack.includes(kw.toLowerCase()));
+  }
+  return false;
+}
 
 interface ShopContentProps {
   products: ShopifyProduct[];
@@ -33,9 +45,7 @@ export default function ShopContent({ products, searchQuery }: ShopContentProps)
   const benefitCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const b of BENEFIT_FILTERS) {
-      counts[b.key] = products.filter((p) =>
-        p.tags.some((t) => b.tags.includes(t.toLowerCase()))
-      ).length;
+      counts[b.key] = products.filter((p) => productMatchesBenefit(p, b)).length;
     }
     return counts;
   }, [products]);
@@ -48,9 +58,7 @@ export default function ShopContent({ products, searchQuery }: ShopContentProps)
     if (activeBenefit) {
       const benefit = BENEFIT_FILTERS.find((b) => b.key === activeBenefit);
       if (benefit) {
-        list = list.filter((p) =>
-          p.tags.some((t) => benefit.tags.includes(t.toLowerCase()))
-        );
+        list = list.filter((p) => productMatchesBenefit(p, benefit));
       }
     }
 
