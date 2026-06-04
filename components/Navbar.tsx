@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ShoppingBag, Menu, X, Search } from "lucide-react";
+import { ShoppingBag, Menu, X, Search, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
@@ -128,6 +128,22 @@ export default function Navbar() {
                 <Search className="w-[18px] h-[18px]" />
               </button>
 
+              <a
+                href="https://ventality-2.myshopify.com/account"
+                aria-label="My account"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "var(--vt-muted)",
+                  transition: "color var(--vt-duration-fast) ease",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                className="hover:text-white"
+              >
+                <User className="w-[18px] h-[18px]" />
+              </a>
+
               <button
                 onClick={openCart}
                 aria-label="Open cart"
@@ -163,15 +179,13 @@ export default function Navbar() {
 
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden"
+                className="md:hidden flex items-center hover:text-white"
                 aria-label="Toggle menu"
                 style={{
                   color: "var(--vt-muted)",
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
                 }}
               >
                 {mobileOpen ? (
@@ -254,6 +268,25 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <a
+                href="https://ventality-2.myshopify.com/account"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "10px 0",
+                  fontSize: "var(--vt-text-base)",
+                  letterSpacing: "0.01em",
+                  color: "var(--vt-muted)",
+                  transition: "color var(--vt-duration-fast) ease",
+                }}
+                className="hover:text-white"
+              >
+                <User className="w-4 h-4" />
+                Account
+              </a>
             </nav>
           </div>
         )}
