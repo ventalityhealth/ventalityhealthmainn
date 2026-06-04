@@ -79,13 +79,13 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
 
       {/* Thumbnails */}
       {images.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
-          {images.slice(0, 4).map((img, i) => (
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {images.map((img, i) => (
             <button
               key={i}
               onClick={() => setActiveIndex(i)}
               aria-label={`View image ${i + 1}`}
-              className={`relative aspect-square bg-[#f5f5f3] rounded-sm overflow-hidden border transition-all ${
+              className={`relative aspect-square w-20 flex-shrink-0 bg-[#f5f5f3] rounded-sm overflow-hidden border transition-all sm:w-24 ${
                 i === activeIndex
                   ? "border-white/60 ring-1 ring-white/20"
                   : "border-white/8 hover:border-white/30"

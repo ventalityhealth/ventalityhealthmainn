@@ -87,7 +87,7 @@ export interface ShopifyCart {
 const PRODUCT_FIELDS = `
   id title handle description
   priceRange { minVariantPrice { amount currencyCode } }
-  images(first: 5) { edges { node { url altText } } }
+  images(first: 20) { edges { node { url altText } } }
   variants(first: 10) {
     edges {
       node {
