@@ -6,6 +6,7 @@ interface SupplementFactsProps {
   data: ParsedProductContent["supplementFacts"]
   ingredients: string | null
   warnings: string | null
+  showCoa?: boolean
 }
 
 /** Splits a comma-separated ingredient string into individual chips */
@@ -34,7 +35,7 @@ function IngredientChips({ raw }: { raw: string }) {
   )
 }
 
-export default function SupplementFacts({ data, ingredients, warnings }: SupplementFactsProps) {
+export default function SupplementFacts({ data, ingredients, warnings, showCoa }: SupplementFactsProps) {
   return (
     <div className="space-y-6">
       {/* ── Supplement Facts Label ─────────────────────────────────────── */}
@@ -129,14 +130,23 @@ export default function SupplementFacts({ data, ingredients, warnings }: Supplem
             ))}
           </div>
 
-          {/* Footnote */}
+          {/* Footnote + COA */}
           <div
-            className="px-5 py-3"
+            className="px-5 py-3 flex items-center justify-between gap-4 flex-wrap"
             style={{ borderTop: "1px solid var(--vt-line)" }}
           >
             <p className="text-xs" style={{ color: "var(--vt-muted-2)" }}>
               † Daily Value not established.
             </p>
+            {showCoa && (
+              <a
+                href="mailto:coa@ventality.com?subject=COA Request"
+                className="text-xs flex items-center gap-1 transition-opacity duration-200 hover:opacity-70"
+                style={{ color: "var(--vt-accent-blue)", textDecoration: "none" }}
+              >
+                Request Certificate of Analysis →
+              </a>
+            )}
           </div>
         </div>
       )}
