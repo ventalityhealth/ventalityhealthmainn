@@ -83,7 +83,7 @@ export default function AddToCart({ product }: AddToCartProps) {
       <Button
         onClick={handleAdd}
         disabled={isLoading || !selectedVariant?.availableForSale}
-        className="w-full bg-white text-black hover:bg-white/90 font-medium py-3 h-auto tracking-wide rounded-sm disabled:opacity-40"
+        className="w-full bg-white text-black hover:bg-white/90 font-medium py-3 h-auto tracking-wide rounded-sm disabled:opacity-40 transition-transform duration-200 hover:scale-[1.02]"
       >
         {isLoading ? (
           "Adding..."

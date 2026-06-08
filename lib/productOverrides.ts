@@ -33,6 +33,37 @@ export interface FaqItem {
   a: string
 }
 
+/** One row in the Section 3 product-description block (icon + claim + sentence). */
+export interface DescriptionRow {
+  icon: string
+  claim: string
+  sentence: string
+}
+
+/** One Section 4 benefit card (outcome-led headline + ingredient callout). */
+export interface BenefitCard {
+  icon: string
+  headline: string
+  ingredient: string
+  description: string
+}
+
+/** Scannable Section 6 "How To Use" fields. */
+export interface HowToUseStructured {
+  serving: string
+  when: string
+  with: string
+  note: string
+  supply: string
+}
+
+/** Static featured pull quote for the hero (rendered only when reviews exist). */
+export interface BestReviewQuote {
+  text: string
+  name: string
+  initial: string
+}
+
 type Override = Partial<
   Pick<ParsedProductContent, "supplementFacts" | "ingredients" | "warnings" | "benefits"> & {
     stats: ProductStat[]
@@ -41,6 +72,12 @@ type Override = Partial<
     howToUse: string
     pairings: ProductPairing[]
     faq: FaqItem[]
+    tagline: string
+    descriptionRows: DescriptionRow[]
+    benefitCards: BenefitCard[]
+    checkFirst: string[]
+    howToUseStructured: HowToUseStructured
+    bestReviewQuote: BestReviewQuote
   }
 >
 
@@ -71,8 +108,78 @@ const NAD_OVERRIDE: Override = {
     { label: "Servings", value: "30" },
     { label: "Active Ingredients", value: "3" },
     { label: "Format", value: "Vegetable Capsule" },
-    { label: "Resveratrol Purity", value: "98%" },
+    { label: "Made In", value: "USA" },
   ],
+  tagline: "NAD+, quercetin, and resveratrol. Three longevity pathways. One daily capsule.",
+  descriptionRows: [
+    {
+      icon: "zap",
+      claim: "Refill the cellular fuel that age drains",
+      sentence: "NAD+ powers mitochondrial energy and the sirtuins behind cellular repair — levels fall roughly 50% between age 20 and 60.*",
+    },
+    {
+      icon: "refresh",
+      claim: "Help clear the cells that slow you down",
+      sentence: "Quercetin is a senolytic flavonoid that supports the body in managing aging senescent cells and their inflammatory signals.*",
+    },
+    {
+      icon: "sparkles",
+      claim: "Switch on your longevity pathways",
+      sentence: "98% resveratrol activates SIRT1 — the sirtuin that mimics caloric restriction at the cellular level.*",
+    },
+    {
+      icon: "heart",
+      claim: "Three mechanisms, working in parallel",
+      sentence: "NAD biosynthesis, senescent-cell clearance, and sirtuin activation target aging from independent angles.*",
+    },
+    {
+      icon: "check",
+      claim: "Vegetable capsule · 98% resveratrol purity · COA on request",
+      sentence: "",
+    },
+  ],
+  benefitCards: [
+    {
+      icon: "zap",
+      headline: "Cellular energy that ages slower",
+      ingredient: "NAD+ 500 mg",
+      description: "Fuels mitochondrial ATP output and the sirtuins behind cellular repair.*",
+    },
+    {
+      icon: "refresh",
+      headline: "Inflammation kept in check",
+      ingredient: "Quercetin 250 mg",
+      description: "A senolytic flavonoid that supports clearance of aging, inflammatory cells.*",
+    },
+    {
+      icon: "sparkles",
+      headline: "Longevity pathways, activated",
+      ingredient: "98% Resveratrol 150 mg",
+      description: "Triggers SIRT1 to mimic the cellular effects of caloric restriction.*",
+    },
+    {
+      icon: "heart",
+      headline: "Whole-body vitality",
+      ingredient: "Longevity Triad",
+      description: "Three complementary pathways target cellular aging together.*",
+    },
+  ],
+  checkFirst: [
+    "You take blood thinners, immunosuppressants, or CYP3A4-metabolized medications — quercetin can inhibit that pathway, so check with your provider first.",
+    "You have a hormone-sensitive condition — consult your provider before use.",
+  ],
+  howToUseStructured: {
+    serving: "2 Capsules per serving",
+    when: "Morning, with a meal",
+    with: "6–8 oz of water",
+    note: "Effects are cumulative — sirtuin activation and senescent-cell clearance build over weeks. Take daily and don't expect acute effects.",
+    supply: "30 servings per container",
+  },
+  bestReviewQuote: {
+    text: "Three months in and my afternoon energy dips have faded — I'm not reaching for a third coffee at 3pm anymore.",
+    name: "Daniel",
+    initial: "R",
+  },
   ingredientDetails: {
     "NAD+ (Nicotinamide Adenine Dinucleotide)": {
       description:
@@ -132,8 +239,8 @@ const NAD_OVERRIDE: Override = {
       a: "Yes. Quercetin inhibits CYP3A4 enzymes, which metabolize many common medications. If you take blood thinners, immunosuppressants, or CYP3A4-processed medications, consult your healthcare provider before use.",
     },
     {
-      q: "What is the return policy?",
-      a: "30-day satisfaction guarantee on first orders. Contact support@ventality.com within 30 days of delivery.",
+      q: "Why NAD+ directly instead of NMN or NR?",
+      a: "NMN and NR are precursors the body converts into NAD+. This formula pairs NAD+ with quercetin and resveratrol to support both NAD+ availability and the sirtuin pathways it feeds. Direct vs. precursor bioavailability varies by individual.",
     },
     {
       q: "Is this third-party tested?",
@@ -169,10 +276,80 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
     stats: [
       { label: "Serving Size", value: "1 Scoop (3.3g)" },
       { label: "Servings", value: "30" },
-      { label: "Active Ingredients", value: "1" },
+      { label: "Net Weight", value: "99 g" },
       { label: "Format", value: "Unflavored Powder" },
-      { label: "Certification", value: "cGMP · FDA-Reg." },
+      { label: "Made In", value: "USA" },
     ],
+    tagline: "One pharmaceutical-grade amino acid. Zero fillers. Recovery, gut, and immune support in a single scoop.",
+    descriptionRows: [
+      {
+        icon: "timer",
+        claim: "Bounce back faster after hard training",
+        sentence: "Intense exercise drops plasma glutamine — replenishing it supports protein synthesis and reduces muscle breakdown.*",
+      },
+      {
+        icon: "leaf",
+        claim: "Strengthen the gut barrier you can't see",
+        sentence: "L-Glutamine is the primary fuel for intestinal lining cells that keep the gut wall intact.*",
+      },
+      {
+        icon: "shield",
+        claim: "Feed your immune system when it's working hardest",
+        sentence: "Rapidly dividing immune cells burn through glutamine during stress, training, and illness.*",
+      },
+      {
+        icon: "droplets",
+        claim: "Mixes clear, tastes like nothing",
+        sentence: "Unflavored free-form powder dissolves into water, juice, or a shake without grit or aftertaste.",
+      },
+      {
+        icon: "check",
+        claim: "Unflavored powder · single active ingredient · COA on request",
+        sentence: "",
+      },
+    ],
+    benefitCards: [
+      {
+        icon: "timer",
+        headline: "Faster post-workout recovery",
+        ingredient: "L-Glutamine 3.15 g",
+        description: "Replenishes the plasma glutamine that intense training depletes.*",
+      },
+      {
+        icon: "leaf",
+        headline: "A stronger gut lining",
+        ingredient: "L-Glutamine 3.15 g",
+        description: "Primary fuel source for the intestinal cells that maintain barrier integrity.*",
+      },
+      {
+        icon: "shield",
+        headline: "Immune support under stress",
+        ingredient: "L-Glutamine 3.15 g",
+        description: "Powers the rapidly dividing immune cells that demand glutamine.*",
+      },
+      {
+        icon: "droplets",
+        headline: "Clean, minimalist formula",
+        ingredient: "Silicon Dioxide only",
+        description: "Just the active and a flow agent — no fillers, flavors, or dyes.*",
+      },
+    ],
+    checkFirst: [
+      "You already take a recovery blend or BCAA formula — check whether it already includes glutamine to avoid stacking the same amino acid.",
+      "You have a serious liver or kidney condition — consult your provider before adding free-form amino acids.",
+    ],
+    howToUseStructured: {
+      serving: "1 Scoop (3.3 g) per serving",
+      when: "Daily — post-workout on training days",
+      with: "8–12 oz of water, juice, or a shake",
+      note: "Dissolves clear with no flavor to manage. Results are cumulative, not acute — use every day.",
+      supply: "30 servings per container",
+    },
+    bestReviewQuote: {
+      text: "My gut issues calmed down within two weeks and my post-leg-day soreness is noticeably shorter now.",
+      name: "Marcus",
+      initial: "T",
+    },
     ingredientDetails: {
       "L-Glutamine": {
         description:
@@ -222,8 +399,8 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
         a: "Yes. L-Glutamine is well-tolerated alongside protein powders, creatine, BCAAs, and adaptogens. No known interactions with common supplement stacks.",
       },
       {
-        q: "What is the return policy?",
-        a: "30-day satisfaction guarantee on first orders. Contact support@ventality.com within 30 days of delivery.",
+        q: "How much should I take, and when?",
+        a: "One 3.3g scoop daily is the standard dose. On training days, post-workout is ideal — that's when plasma glutamine is most depleted. There's no need to cycle it; consistent daily use produces the best results.",
       },
       {
         q: "Does this contain allergens?",
@@ -263,10 +440,80 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
     stats: [
       { label: "Serving Size", value: "1 Gummy" },
       { label: "Servings", value: "35" },
-      { label: "Active Ingredients", value: "4" },
+      { label: "Active Mushrooms", value: "4" },
       { label: "Format", value: "Orange Gummy" },
-      { label: "Stimulants", value: "None" },
+      { label: "Made In", value: "USA" },
     ],
+    tagline: "Four functional mushrooms. Stimulant-free focus and immune support. One orange gummy a day.",
+    descriptionRows: [
+      {
+        icon: "brain",
+        claim: "Sharper focus without the caffeine crash",
+        sentence: "Lion's Mane supplies hericenones and erinacines that support Nerve Growth Factor and neuroplasticity.*",
+      },
+      {
+        icon: "shield",
+        claim: "Daily immune backup from two angles",
+        sentence: "Shiitake and Maitake beta-glucans support macrophage and natural killer cell activity.*",
+      },
+      {
+        icon: "sparkles",
+        claim: "Protect your cells from everyday stress",
+        sentence: "Chaga is among the highest-ORAC botanicals ever measured, delivering broad antioxidant coverage.*",
+      },
+      {
+        icon: "leaf",
+        claim: "Energy that builds over weeks, not hours",
+        sentence: "Adaptogenic mushrooms work cumulatively — no stimulants, no jitters, no crash.*",
+      },
+      {
+        icon: "check",
+        claim: "Orange gummy · no artificial dyes or sweeteners · COA on request",
+        sentence: "",
+      },
+    ],
+    benefitCards: [
+      {
+        icon: "brain",
+        headline: "Clearer thinking, day to day",
+        ingredient: "Lion's Mane 87 mg",
+        description: "Supports Nerve Growth Factor and the brain's capacity to form new connections.*",
+      },
+      {
+        icon: "shield",
+        headline: "Built-in immune defense",
+        ingredient: "Shiitake + Maitake 87 mg each",
+        description: "Beta-glucans that activate macrophages and natural killer cells.*",
+      },
+      {
+        icon: "sparkles",
+        headline: "Cellular antioxidant shield",
+        ingredient: "Chaga 87 mg",
+        description: "One of the highest-ORAC botanicals measured, defending against oxidative stress.*",
+      },
+      {
+        icon: "leaf",
+        headline: "Calm, stimulant-free energy",
+        ingredient: "4-Mushroom Complex",
+        description: "Adaptogenic support that builds steadily without caffeine.*",
+      },
+    ],
+    checkFirst: [
+      "You have a mushroom allergy — this formula is built entirely around four mushroom extracts.",
+      "You take immunosuppressant medication — these mushrooms modulate immune activity, so consult your provider first.",
+    ],
+    howToUseStructured: {
+      serving: "1 Gummy per serving",
+      when: "Any time — morning or evening",
+      with: "With or without food",
+      note: "Adaptogens are cumulative. Commit to 3–4 weeks of daily use before judging results.",
+      supply: "35 servings per container",
+    },
+    bestReviewQuote: {
+      text: "I take one with breakfast and my focus through the afternoon is noticeably steadier — no coffee jitters.",
+      name: "Priya",
+      initial: "S",
+    },
     ingredientDetails: {
       "Lion's Mane Extract": {
         description:
@@ -331,8 +578,8 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
         a: "Yes. The formula works alongside caffeine and other adaptogen products without interaction. If taking immunosuppressant medications, consult your provider first — these mushrooms modulate immune activity.",
       },
       {
-        q: "What is the return policy?",
-        a: "30-day satisfaction guarantee on first orders. Email support@ventality.com within 30 days of delivery.",
+        q: "How much sugar is in each gummy?",
+        a: "Each gummy has 10 kcal and 2g of added sugar from organic cane sugar and tapioca syrup — far less than most gummy supplements. There are no artificial dyes or synthetic sweeteners; the orange color comes from Beta Carotene.",
       },
       {
         q: "Does this contain allergens?",
@@ -369,8 +616,78 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
       { label: "Servings", value: "30" },
       { label: "Active Ingredients", value: "4" },
       { label: "Format", value: "Vegetable Capsule" },
-      { label: "Certification", value: "cGMP · FDA-Reg." },
+      { label: "Made In", value: "USA" },
     ],
+    tagline: "Himalayan shilajit, ashwagandha, sea moss, and tongkat ali. Four adaptogens. One capsule daily.",
+    descriptionRows: [
+      {
+        icon: "zap",
+        claim: "Power your cells at the source",
+        sentence: "Shilajit's fulvic acid escorts nutrients into mitochondria and supports ATP synthesis.*",
+      },
+      {
+        icon: "activity",
+        claim: "Lower the stress that drains your edge",
+        sentence: "Ashwagandha is the most studied adaptogen for cortisol regulation and stress resilience.*",
+      },
+      {
+        icon: "dumbbell",
+        claim: "Support healthy testosterone and drive",
+        sentence: "Tongkat ali at 300:1 is linked to free testosterone, libido, and fatigue recovery in active adults.*",
+      },
+      {
+        icon: "leaf",
+        claim: "Round it out with thyroid and minerals",
+        sentence: "Sea moss adds natural iodine and potassium to support thyroid and electrolyte balance.*",
+      },
+      {
+        icon: "check",
+        claim: "Vegetable capsule · high-ratio extracts · COA on request",
+        sentence: "",
+      },
+    ],
+    benefitCards: [
+      {
+        icon: "zap",
+        headline: "Energy from the mitochondria up",
+        ingredient: "Shilajit 30:1, 400 mg",
+        description: "Fulvic acid and dibenzo-α-pyrones support cellular ATP production.*",
+      },
+      {
+        icon: "activity",
+        headline: "Calm under pressure",
+        ingredient: "Ashwagandha 30:1, 100 mg",
+        description: "Modulates the HPA axis to support cortisol and stress resilience.*",
+      },
+      {
+        icon: "dumbbell",
+        headline: "Drive and hormonal support",
+        ingredient: "Tongkat Ali 300:1, 100 mg",
+        description: "Linked to free testosterone, libido, and fatigue recovery.*",
+      },
+      {
+        icon: "leaf",
+        headline: "Thyroid and mineral balance",
+        ingredient: "Sea Moss 20:1, 100 mg",
+        description: "Natural iodine and potassium support thyroid and electrolytes.*",
+      },
+    ],
+    checkFirst: [
+      "You have a hormone-sensitive condition — this formula is built to influence testosterone and the HPA axis, so consult your provider before use.",
+      "You're sensitive to alertness late in the day — take it in the morning, as some users feel more energized.",
+    ],
+    howToUseStructured: {
+      serving: "1 Capsule per serving",
+      when: "Morning, with a meal",
+      with: "6–8 oz of water",
+      note: "Morning use is preferred — some report alertness that can affect sleep if taken late. Effects build over 2–4 weeks.",
+      supply: "30 servings per container",
+    },
+    bestReviewQuote: {
+      text: "Steadier energy through the whole day and my gym sessions feel less draining after about a month on it.",
+      name: "Jordan",
+      initial: "M",
+    },
     ingredientDetails: {
       "Shilajit Extract 30:1 (Asphaltum)(Stone)": {
         description:
@@ -439,8 +756,8 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
         a: "No stimulants. Reported energy improvements are attributable to improved mitochondrial function and cortisol regulation — not caffeine or stimulant compounds.",
       },
       {
-        q: "What is the return policy?",
-        a: "30-day satisfaction guarantee on first orders. Contact support@ventality.com within 30 days of delivery.",
+        q: "Why take shilajit and tongkat ali together?",
+        a: "They work on different systems that reinforce each other: shilajit supports mitochondrial energy production, while tongkat ali and ashwagandha support the hormonal and stress pathways that govern how that energy is used. Sea moss adds the thyroid and mineral base underneath both.",
       },
     ],
   },
@@ -477,8 +794,78 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
       { label: "Servings", value: "30" },
       { label: "Active Ingredients", value: "7" },
       { label: "Format", value: "Gelatin Capsule" },
-      { label: "Habit-Forming", value: "Non-Habit-Forming" },
+      { label: "Made In", value: "USA" },
     ],
+    tagline: "Seven botanicals and amino acids. Multi-pathway sleep support. Non-habit-forming.",
+    descriptionRows: [
+      {
+        icon: "moon",
+        claim: "Fall asleep without lying there awake",
+        sentence: "Valerian's valerenic acid prolongs the calming GABA signal that quiets a busy mind.*",
+      },
+      {
+        icon: "sparkles",
+        claim: "Cue your body that it's time to sleep",
+        sentence: "A low, physiologic 2 mg of melatonin signals the brain's clock without suppressing natural production.*",
+      },
+      {
+        icon: "leaf",
+        claim: "Quiet a racing mind, naturally",
+        sentence: "Chamomile, lemon balm, and passion flower each bind GABA-A receptors to ease mental chatter.*",
+      },
+      {
+        icon: "brain",
+        claim: "Support the chemistry of deeper rest",
+        sentence: "GABA lowers neural excitability while L-tryptophan feeds the serotonin-to-melatonin pathway.*",
+      },
+      {
+        icon: "check",
+        claim: "Non-habit-forming · physiologic 2 mg melatonin · COA on request",
+        sentence: "",
+      },
+    ],
+    benefitCards: [
+      {
+        icon: "moon",
+        headline: "Fall asleep faster",
+        ingredient: "Valerian 150 mg",
+        description: "Prolongs the calming GABA signal that eases sleep onset.*",
+      },
+      {
+        icon: "sparkles",
+        headline: "A gentle circadian nudge",
+        ingredient: "Melatonin 2 mg",
+        description: "A low, physiologic dose that signals the sleep cycle without grogginess.*",
+      },
+      {
+        icon: "leaf",
+        headline: "A calmer, quieter mind",
+        ingredient: "Chamomile + Lemon Balm + Passion Flower",
+        description: "Botanicals that bind GABA-A receptors to ease mental tension.*",
+      },
+      {
+        icon: "brain",
+        headline: "Better sleep chemistry",
+        ingredient: "GABA 100 mg + L-Tryptophan 100 mg",
+        description: "Lower neural excitability plus a serotonin and melatonin precursor.*",
+      },
+    ],
+    checkFirst: [
+      "You take sedatives, benzodiazepines, or antidepressants — these botanicals act on overlapping pathways, so check with your provider first.",
+      "You need to drive or operate machinery soon after — this formula is designed to make you drowsy.",
+    ],
+    howToUseStructured: {
+      serving: "2 Capsules per serving",
+      when: "30–60 minutes before bed",
+      with: "6–8 oz of water",
+      note: "Do not exceed 2 capsules per night, and don't drive or operate machinery after taking. Nightly use is more reliable than occasional use.",
+      supply: "30 servings per container",
+    },
+    bestReviewQuote: {
+      text: "I fall asleep in about twenty minutes now instead of staring at the ceiling, and I wake up clear-headed — not groggy.",
+      name: "Elena",
+      initial: "V",
+    },
     ingredientDetails: {
       "Valerian Extract (root)": {
         description:
@@ -562,8 +949,8 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
         a: "Research suggests 0.5–3mg is the effective range for most adults. Higher doses do not produce proportionally better sleep — and excess melatonin may suppress natural production over time. 2mg is intentionally conservative.",
       },
       {
-        q: "What is the return policy?",
-        a: "30-day satisfaction guarantee on first orders. Email support@ventality.com within 30 days of delivery.",
+        q: "When exactly should I take it?",
+        a: "Take 2 capsules 30–60 minutes before your target sleep time, ideally as part of a consistent wind-down routine. Avoid screens after dosing so the melatonin signal isn't competing with bright light.",
       },
     ],
   },
@@ -622,8 +1009,78 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
       { label: "Servings", value: "30" },
       { label: "Active Compounds", value: "22+" },
       { label: "Format", value: "Vegetable Capsule" },
-      { label: "Nootropic Blend", value: "617 mg" },
+      { label: "Made In", value: "USA" },
     ],
+    tagline: "A full B-complex plus a 617 mg nootropic blend. Focus, memory, and recall in two capsules.",
+    descriptionRows: [
+      {
+        icon: "brain",
+        claim: "Hold your focus through the long stretch",
+        sentence: "A layered nootropic stack with DMAE and Huperzine A supports acetylcholine for sustained attention.*",
+      },
+      {
+        icon: "sparkles",
+        claim: "Remember more of what you take in",
+        sentence: "Bacopa monnieri is studied for improving memory encoding speed over 8–12 weeks.*",
+      },
+      {
+        icon: "zap",
+        claim: "Fuel the chemistry behind clear thinking",
+        sentence: "B6 at 706% DV drives dopamine, serotonin, and acetylcholine synthesis.*",
+      },
+      {
+        icon: "shield",
+        claim: "Protect neurons from everyday wear",
+        sentence: "Green tea, grape seed, and bilberry polyphenols guard neurons against oxidative stress.*",
+      },
+      {
+        icon: "check",
+        claim: "Vegetable capsule · 617 mg nootropic blend · COA on request",
+        sentence: "",
+      },
+    ],
+    benefitCards: [
+      {
+        icon: "brain",
+        headline: "Sustained, stimulant-free focus",
+        ingredient: "Nootropic Blend 617 mg",
+        description: "DMAE and Huperzine A support acetylcholine for steady attention.*",
+      },
+      {
+        icon: "sparkles",
+        headline: "Sharper memory and recall",
+        ingredient: "Bacopa Monnieri",
+        description: "Studied for improving memory encoding speed with consistent use.*",
+      },
+      {
+        icon: "zap",
+        headline: "Neurotransmitter support",
+        ingredient: "Vitamin B6 706% DV",
+        description: "Drives dopamine, serotonin, and acetylcholine production.*",
+      },
+      {
+        icon: "shield",
+        headline: "A protective antioxidant shield",
+        ingredient: "Green Tea + Grape Seed + Bilberry",
+        description: "Polyphenols that defend neurons from oxidative stress.*",
+      },
+    ],
+    checkFirst: [
+      "You have a soy or fish allergy — this formula contains soy and fish (tuna) from its DHA source.",
+      "You take cholinesterase inhibitors, antidepressants, or blood thinners, or have a neurological condition — consult your provider first.",
+    ],
+    howToUseStructured: {
+      serving: "2 Capsules per serving",
+      when: "Morning or midday, with a meal",
+      with: "6–8 oz of water",
+      note: "Take at the same time daily. Allow 4–8 weeks for Bacopa monnieri to reach full effect. Do not exceed 2 capsules per 24 hours.",
+      supply: "30 servings per container",
+    },
+    bestReviewQuote: {
+      text: "Around week six my recall at work clearly improved — names and details stick now without the caffeine spikes I used to rely on.",
+      name: "Aaron",
+      initial: "K",
+    },
     ingredientDetails: {
       "Vitamin B6 (as Pyridoxine HCl)": {
         description:
@@ -697,8 +1154,8 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
         a: "Huperzine A has a long half-life. Some practitioners recommend cycling (5 days on, 2 days off) for extended use. Consult your healthcare provider, especially if you take cholinesterase inhibitors or have a neurological condition.",
       },
       {
-        q: "What is the return policy?",
-        a: "30-day satisfaction guarantee on first orders. Contact support@ventality.com within 30 days of delivery.",
+        q: "Can I stack this with the Sleep Formula?",
+        a: "Yes — they target the same cognitive goal from opposite ends of the day. Take Brain & Focus in the morning or midday for daytime performance, and Sleep Formula at night, since memory consolidation happens during deep sleep.",
       },
     ],
   },
@@ -772,8 +1229,78 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
       { label: "Servings", value: "30" },
       { label: "Active Nutrients", value: "20+" },
       { label: "Format", value: "Vegetable Capsule" },
-      { label: "Certification", value: "cGMP · FDA-Reg." },
+      { label: "Made In", value: "USA" },
     ],
+    tagline: "20+ vitamins and minerals plus targeted men's health, immune, and antioxidant blends. Two capsules daily.",
+    descriptionRows: [
+      {
+        icon: "pill",
+        claim: "Cover your nutritional gaps in one step",
+        sentence: "A complete vitamin and mineral matrix replaces juggling multiple separate bottles.*",
+      },
+      {
+        icon: "zap",
+        claim: "Support real daily energy, not a buzz",
+        sentence: "B12 at 1125% DV and a full B-complex fuel red blood cell formation and energy metabolism.*",
+      },
+      {
+        icon: "activity",
+        claim: "Targeted support for men's health",
+        sentence: "Saw palmetto, lycopene, and stinging nettle root back prostate and DHT metabolism.*",
+      },
+      {
+        icon: "shield",
+        claim: "Daily immune and antioxidant backup",
+        sentence: "Echinacea, beta-glucan, and a seven-source polyphenol blend support immunity and cellular defense.*",
+      },
+      {
+        icon: "check",
+        claim: "Vegetable capsule · 20+ active nutrients · COA on request",
+        sentence: "",
+      },
+    ],
+    benefitCards: [
+      {
+        icon: "pill",
+        headline: "Complete daily coverage",
+        ingredient: "20+ Vitamins & Minerals",
+        description: "A full micronutrient matrix in two capsules.*",
+      },
+      {
+        icon: "zap",
+        headline: "Everyday energy metabolism",
+        ingredient: "B12 1125% DV + B-Complex",
+        description: "Supports red blood cell formation and energy production.*",
+      },
+      {
+        icon: "activity",
+        headline: "Men's health support",
+        ingredient: "Saw Palmetto + Lycopene Blend 170 mg",
+        description: "Targets prostate health and DHT metabolism.*",
+      },
+      {
+        icon: "shield",
+        headline: "Immune and antioxidant defense",
+        ingredient: "Immune + Antioxidant Blends 300 mg",
+        description: "Echinacea, beta-glucan, and a broad polyphenol spectrum.*",
+      },
+    ],
+    checkFirst: [
+      "You already take therapeutic-dose individual vitamins — check for overlap, since several nutrients here run well above 100% DV.",
+      "You need iron — this formula contains none, so supplement separately if your provider recommends it.",
+    ],
+    howToUseStructured: {
+      serving: "2 Capsules per serving",
+      when: "Morning, with a meal",
+      with: "A meal containing dietary fat",
+      note: "Fat-soluble vitamins (A, D, E) absorb better with dietary fat. Take with breakfast, not on an empty stomach, to avoid B-vitamin nausea.",
+      supply: "30 servings per container",
+    },
+    bestReviewQuote: {
+      text: "Replaced four separate bottles with this and my energy through the workday has been more consistent ever since.",
+      name: "Greg",
+      initial: "L",
+    },
     ingredientDetails: {
       "Vitamin D (as Cholecalciferol)": {
         description:
@@ -848,8 +1375,8 @@ export const PRODUCT_OVERRIDES: Record<string, Override> = {
         a: "No iron listed in this formula. If iron supplementation is a concern, check with your healthcare provider about your specific needs.",
       },
       {
-        q: "What is the return policy?",
-        a: "30-day satisfaction guarantee on first orders. Contact support@ventality.com within 30 days of delivery.",
+        q: "Is this formulated specifically for men?",
+        a: "It works as a complete multivitamin for most adults, but the Health Support Blend (saw palmetto, lycopene, stinging nettle) targets prostate and DHT-related concerns that are most relevant to men. There's no iron, which also suits most men's needs.",
       },
       {
         q: "Are there allergen risks?",

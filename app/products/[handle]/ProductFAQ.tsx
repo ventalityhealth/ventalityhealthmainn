@@ -23,8 +23,8 @@ const GENERIC_FAQ: FaqItem[] = [
     a: "Most of our supplements are well-tolerated alongside common supplement stacks. If you take prescription medications, are pregnant or nursing, or have a medical condition, consult your healthcare provider before adding any new supplement.",
   },
   {
-    q: "What is your return policy?",
-    a: "We offer a 30-day satisfaction guarantee on first orders. Contact support@ventality.com within 30 days of delivery — no lengthy process, no runaround.",
+    q: "Where are your products made?",
+    a: "All Ventality products are manufactured in the USA in a cGMP-certified, FDA-registered facility. See our policy pages in the site footer for shipping and returns details.",
   },
   {
     q: "How should I store this product?",
