@@ -15,9 +15,9 @@ export async function POST(req: NextRequest) {
   const handle = searchParams.get("handle");
 
   if (handle) {
-    revalidateTag(`shopify-product-${handle}`, "default");
+    revalidateTag(`shopify-product-${handle}`)
   } else {
-    revalidateTag("shopify-products", "default");
+    revalidateTag("shopify-products")
   }
 
   return NextResponse.json({

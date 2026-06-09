@@ -17,7 +17,7 @@ async function shopifyFetch<T = unknown>(
         "X-Shopify-Storefront-Access-Token": TOKEN,
       },
       body: JSON.stringify({ query, variables }),
-      next: { revalidate: 3600, tags },
+      next: { revalidate: 60, tags },
     });
     const responseText = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
