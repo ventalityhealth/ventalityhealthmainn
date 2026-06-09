@@ -22,7 +22,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <div className="relative aspect-square bg-[#f5f5f3] rounded-sm overflow-hidden flex items-center justify-center">
+      <div className="relative aspect-[4/5] bg-[#0E131C] rounded-sm overflow-hidden flex items-center justify-center">
         <span className="text-white/10 text-xs">{title}</span>
       </div>
     );
@@ -31,14 +31,14 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
   return (
     <div className="space-y-3">
       {/* Main image */}
-      <div className="relative aspect-square bg-[#f5f5f3] rounded-sm overflow-hidden group">
+      <div className="relative aspect-[4/5] bg-[#0E131C] rounded-sm overflow-hidden group">
         <Image
           key={images[activeIndex].url}
           src={images[activeIndex].url}
           alt={images[activeIndex].altText ?? title}
           fill
-          className="object-cover transition-opacity duration-300"
-          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-contain transition-opacity duration-300"
+          sizes="(max-width: 1024px) 100vw, 55vw"
           priority={activeIndex === 0}
         />
 
@@ -85,7 +85,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
               key={i}
               onClick={() => setActiveIndex(i)}
               aria-label={`View image ${i + 1}`}
-              className={`relative aspect-square w-20 flex-shrink-0 bg-[#f5f5f3] rounded-sm overflow-hidden border transition-all sm:w-24 ${
+              className={`relative aspect-square w-20 flex-shrink-0 bg-[#0E131C] rounded-sm overflow-hidden border transition-all sm:w-24 ${
                 i === activeIndex
                   ? "border-white/60 ring-1 ring-white/20"
                   : "border-white/8 hover:border-white/30"
@@ -95,7 +95,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
                 src={img.url}
                 alt={img.altText ?? `${title} ${i + 1}`}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="25vw"
               />
             </button>
