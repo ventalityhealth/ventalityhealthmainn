@@ -752,13 +752,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     style={{ textDecoration: "none" }}
                   >
                     {pair.image && (
-                      <div className="relative aspect-square w-full rounded-lg overflow-hidden mb-4 bg-[#0E131C]">
+                      <div className="w-full rounded-lg overflow-hidden mb-4">
                         <Image
                           src={pair.image.url}
                           alt={pair.image.altText ?? pair.name}
-                          fill
-                          className="object-contain p-2"
+                          width={0}
+                          height={0}
                           sizes="(max-width: 640px) 60vw, 25vw"
+                          className="w-full h-auto block"
                         />
                       </div>
                     )}

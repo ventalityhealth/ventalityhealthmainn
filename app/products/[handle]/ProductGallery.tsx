@@ -22,7 +22,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
 
   if (images.length === 0) {
     return (
-      <div className="relative aspect-[4/5] bg-[#0E131C] rounded-sm overflow-hidden flex items-center justify-center">
+      <div className="w-full aspect-square rounded-sm flex items-center justify-center bg-[#131319] border border-white/8">
         <span className="text-white/10 text-xs">{title}</span>
       </div>
     );
@@ -30,19 +30,20 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
 
   return (
     <div className="space-y-3">
-      {/* Main image */}
-      <div className="relative aspect-[4/5] bg-[#0E131C] rounded-sm overflow-hidden group">
+      {/* Main image — height follows the image's natural proportions, no cropping */}
+      <div className="relative w-full rounded-sm overflow-hidden group">
         <Image
           key={images[activeIndex].url}
           src={images[activeIndex].url}
           alt={images[activeIndex].altText ?? title}
-          fill
-          className="object-contain transition-opacity duration-300"
+          width={0}
+          height={0}
           sizes="(max-width: 1024px) 100vw, 55vw"
+          className="w-full h-auto block transition-opacity duration-300"
           priority={activeIndex === 0}
         />
 
-        {/* Prev / next arrows — only shown when multiple images */}
+        {/* Prev / next arrows */}
         {images.length > 1 && (
           <>
             <button
@@ -77,7 +78,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
         )}
       </div>
 
-      {/* Thumbnails */}
+      {/* Thumbnails — natural proportions, small fixed width */}
       {images.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1">
           {images.map((img, i) => (
@@ -85,7 +86,7 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
               key={i}
               onClick={() => setActiveIndex(i)}
               aria-label={`View image ${i + 1}`}
-              className={`relative aspect-square w-20 flex-shrink-0 bg-[#0E131C] rounded-sm overflow-hidden border transition-all sm:w-24 ${
+              className={`relative flex-shrink-0 w-20 sm:w-24 rounded-sm overflow-hidden border transition-all ${
                 i === activeIndex
                   ? "border-white/60 ring-1 ring-white/20"
                   : "border-white/8 hover:border-white/30"
@@ -94,9 +95,10 @@ export default function ProductGallery({ images, title }: ProductGalleryProps) {
               <Image
                 src={img.url}
                 alt={img.altText ?? `${title} ${i + 1}`}
-                fill
-                className="object-contain"
+                width={0}
+                height={0}
                 sizes="25vw"
+                className="w-full h-auto block"
               />
             </button>
           ))}
